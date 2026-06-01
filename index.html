@@ -1,0 +1,1075 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AICoachKit – KI-Prompts für Fitness-Coaches</title>
+<meta name="description" content="50+ fertige KI-Prompts für Fitness-Coaches. Spare Stunden pro Woche bei Trainingsplänen, Content, Emails & Ernährungsberatung.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #0B1120;
+    --navy2: #141E33;
+    --card: #1A2540;
+    --indigo: #6366F1;
+    --indigo-light: #818CF8;
+    --indigo-glow: rgba(99,102,241,0.15);
+    --green: #10B981;
+    --yellow: #F59E0B;
+    --pink: #EC4899;
+    --white: #FFFFFF;
+    --muted: #94A3B8;
+    --light: #CBD5E1;
+    --border: rgba(99,102,241,0.2);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--navy);
+    color: var(--light);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 16px;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  h1,h2,h3,h4 {
+    font-family: 'Syne', sans-serif;
+    color: var(--white);
+    line-height: 1.2;
+  }
+
+  /* ── NOISE TEXTURE ── */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.4;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.2rem 2rem;
+    background: rgba(11,17,32,0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .nav-logo {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: 1.2rem;
+    color: var(--white);
+    text-decoration: none;
+    letter-spacing: -0.02em;
+  }
+
+  .nav-logo span { color: var(--indigo); }
+
+  .nav-links {
+    display: flex;
+    gap: 2rem;
+    list-style: none;
+  }
+
+  .nav-links a {
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover { color: var(--white); }
+
+  .nav-cta {
+    background: var(--indigo);
+    color: var(--white) !important;
+    padding: 0.5rem 1.2rem;
+    border-radius: 8px;
+    font-weight: 600 !important;
+    transition: background 0.2s, transform 0.15s !important;
+  }
+
+  .nav-cta:hover {
+    background: var(--indigo-light) !important;
+    transform: translateY(-1px);
+  }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 8rem 2rem 4rem;
+    position: relative;
+  }
+
+  .hero-glow {
+    position: absolute;
+    top: 20%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, rgba(99,102,241,0.12) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .hero-inner { max-width: 760px; position: relative; z-index: 1; }
+
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: var(--indigo-glow);
+    border: 1px solid var(--border);
+    color: var(--indigo-light);
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 0.4rem 1rem;
+    border-radius: 999px;
+    margin-bottom: 1.5rem;
+  }
+
+  .hero h1 {
+    font-size: clamp(2.4rem, 6vw, 4rem);
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    margin-bottom: 1.2rem;
+    line-height: 1.1;
+  }
+
+  .hero h1 .accent { color: var(--indigo); }
+
+  .hero p {
+    font-size: 1.15rem;
+    color: var(--muted);
+    max-width: 540px;
+    margin: 0 auto 2.5rem;
+    font-weight: 300;
+  }
+
+  .hero-btns {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .btn-primary {
+    background: var(--indigo);
+    color: var(--white);
+    padding: 0.85rem 2rem;
+    border-radius: 10px;
+    font-weight: 600;
+    font-size: 1rem;
+    text-decoration: none;
+    transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+    box-shadow: 0 0 24px rgba(99,102,241,0.3);
+  }
+
+  .btn-primary:hover {
+    background: var(--indigo-light);
+    transform: translateY(-2px);
+    box-shadow: 0 0 36px rgba(99,102,241,0.45);
+  }
+
+  .btn-secondary {
+    background: transparent;
+    color: var(--light);
+    padding: 0.85rem 2rem;
+    border-radius: 10px;
+    font-weight: 500;
+    font-size: 1rem;
+    text-decoration: none;
+    border: 1px solid var(--border);
+    transition: border-color 0.2s, color 0.2s, transform 0.15s;
+  }
+
+  .btn-secondary:hover {
+    border-color: var(--indigo);
+    color: var(--white);
+    transform: translateY(-2px);
+  }
+
+  .hero-stats {
+    display: flex;
+    gap: 2.5rem;
+    justify-content: center;
+    margin-top: 3.5rem;
+    flex-wrap: wrap;
+  }
+
+  .hero-stat strong {
+    display: block;
+    font-family: 'Syne', sans-serif;
+    font-size: 1.8rem;
+    font-weight: 800;
+    color: var(--white);
+  }
+
+  .hero-stat span {
+    font-size: 0.8rem;
+    color: var(--muted);
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+
+  /* ── SECTIONS ── */
+  section { padding: 5rem 2rem; position: relative; z-index: 1; }
+
+  .container { max-width: 1000px; margin: 0 auto; }
+
+  .section-label {
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--indigo);
+    margin-bottom: 0.75rem;
+  }
+
+  .section-title {
+    font-size: clamp(1.8rem, 4vw, 2.6rem);
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    margin-bottom: 1rem;
+  }
+
+  .section-sub {
+    color: var(--muted);
+    font-size: 1.05rem;
+    max-width: 520px;
+    font-weight: 300;
+  }
+
+  /* ── PROBLEM ── */
+  .problem-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1.2rem;
+    margin-top: 3rem;
+  }
+
+  .problem-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 1.5rem;
+    position: relative;
+    overflow: hidden;
+    transition: border-color 0.2s, transform 0.2s;
+  }
+
+  .problem-card:hover {
+    border-color: rgba(99,102,241,0.5);
+    transform: translateY(-3px);
+  }
+
+  .problem-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: var(--indigo);
+    opacity: 0;
+    transition: opacity 0.2s;
+  }
+
+  .problem-card:hover::before { opacity: 1; }
+
+  .problem-icon {
+    font-size: 1.6rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .problem-card h3 {
+    font-size: 1rem;
+    font-weight: 700;
+    margin-bottom: 0.4rem;
+  }
+
+  .problem-card p {
+    font-size: 0.88rem;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+
+  /* ── PROMPTS PREVIEW ── */
+  .prompts-section { background: var(--navy2); }
+
+  .categories {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1rem;
+    margin-top: 3rem;
+  }
+
+  .cat-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 1.5rem;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+
+  .cat-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+  }
+
+  .cat-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    margin-bottom: 1rem;
+  }
+
+  .cat-card h3 {
+    font-size: 1rem;
+    font-weight: 700;
+    margin-bottom: 0.3rem;
+  }
+
+  .cat-count {
+    font-size: 0.8rem;
+    color: var(--muted);
+    margin-bottom: 1rem;
+  }
+
+  .cat-examples {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+
+  .cat-example {
+    font-size: 0.8rem;
+    color: var(--muted);
+    padding: 0.35rem 0.6rem;
+    background: rgba(255,255,255,0.03);
+    border-radius: 6px;
+    border-left: 2px solid var(--border);
+  }
+
+  /* ── HOW IT WORKS ── */
+  .steps {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem;
+    margin-top: 3rem;
+    position: relative;
+  }
+
+  .step {
+    text-align: center;
+    padding: 2rem 1.5rem;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+  }
+
+  .step-num {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    background: var(--indigo-glow);
+    border: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: 1.1rem;
+    color: var(--indigo-light);
+    margin: 0 auto 1rem;
+  }
+
+  .step h3 { font-size: 1rem; margin-bottom: 0.4rem; }
+  .step p { font-size: 0.88rem; color: var(--muted); }
+
+  /* ── PRICING ── */
+  .pricing-section { background: var(--navy2); }
+
+  .pricing-card {
+    max-width: 440px;
+    margin: 3rem auto 0;
+    background: var(--card);
+    border: 1px solid var(--indigo);
+    border-radius: 20px;
+    padding: 2.5rem;
+    text-align: center;
+    box-shadow: 0 0 60px rgba(99,102,241,0.15);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .pricing-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--indigo), var(--pink));
+  }
+
+  .pricing-badge {
+    display: inline-block;
+    background: var(--indigo-glow);
+    border: 1px solid var(--border);
+    color: var(--indigo-light);
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 0.3rem 0.9rem;
+    border-radius: 999px;
+    margin-bottom: 1.2rem;
+  }
+
+  .pricing-price {
+    font-family: 'Syne', sans-serif;
+    font-size: 3.5rem;
+    font-weight: 800;
+    color: var(--white);
+    line-height: 1;
+    margin-bottom: 0.3rem;
+  }
+
+  .pricing-price sup {
+    font-size: 1.5rem;
+    vertical-align: super;
+  }
+
+  .pricing-note {
+    font-size: 0.85rem;
+    color: var(--muted);
+    margin-bottom: 2rem;
+  }
+
+  .pricing-features {
+    list-style: none;
+    text-align: left;
+    margin-bottom: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .pricing-features li {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    font-size: 0.95rem;
+  }
+
+  .pricing-features li::before {
+    content: '✓';
+    color: var(--green);
+    font-weight: 700;
+    flex-shrink: 0;
+    margin-top: 0.1rem;
+  }
+
+  .btn-buy {
+    display: block;
+    width: 100%;
+    background: var(--indigo);
+    color: var(--white);
+    padding: 1rem;
+    border-radius: 10px;
+    font-weight: 700;
+    font-size: 1.05rem;
+    text-decoration: none;
+    transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+    box-shadow: 0 0 24px rgba(99,102,241,0.3);
+  }
+
+  .btn-buy:hover {
+    background: var(--indigo-light);
+    transform: translateY(-2px);
+    box-shadow: 0 0 40px rgba(99,102,241,0.5);
+  }
+
+  .pricing-guarantee {
+    margin-top: 1rem;
+    font-size: 0.8rem;
+    color: var(--muted);
+  }
+
+  /* ── ABOUT ── */
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+    margin-top: 3rem;
+  }
+
+  @media (max-width: 680px) {
+    .about-grid { grid-template-columns: 1fr; gap: 2rem; }
+  }
+
+  .about-visual {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 2.5rem;
+    text-align: center;
+  }
+
+  .about-icon {
+    font-size: 4rem;
+    margin-bottom: 1rem;
+  }
+
+  .about-visual h3 {
+    font-size: 1.3rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .about-visual p {
+    font-size: 0.9rem;
+    color: var(--muted);
+  }
+
+  .about-text h2 { margin-bottom: 1rem; }
+
+  .about-text p {
+    color: var(--muted);
+    margin-bottom: 1rem;
+    font-weight: 300;
+  }
+
+  .about-values {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    margin-top: 1.5rem;
+  }
+
+  .about-value {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    font-size: 0.9rem;
+  }
+
+  .about-value-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--indigo);
+    flex-shrink: 0;
+    margin-top: 0.55rem;
+  }
+
+  /* ── CONTACT ── */
+  .contact-section { background: var(--navy2); }
+
+  .contact-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    margin-top: 3rem;
+    align-items: start;
+  }
+
+  @media (max-width: 680px) {
+    .contact-grid { grid-template-columns: 1fr; }
+  }
+
+  .contact-info { display: flex; flex-direction: column; gap: 1.2rem; }
+
+  .contact-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    padding: 1.2rem;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+  }
+
+  .contact-item-icon {
+    font-size: 1.3rem;
+    flex-shrink: 0;
+  }
+
+  .contact-item h4 {
+    font-size: 0.85rem;
+    color: var(--muted);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 500;
+    margin-bottom: 0.2rem;
+  }
+
+  .contact-item a, .contact-item p {
+    font-size: 0.95rem;
+    color: var(--light);
+    text-decoration: none;
+  }
+
+  .contact-item a:hover { color: var(--indigo-light); }
+
+  .contact-form {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 2rem;
+  }
+
+  .contact-form h3 {
+    font-size: 1.2rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .form-group { margin-bottom: 1.2rem; }
+
+  .form-group label {
+    display: block;
+    font-size: 0.85rem;
+    color: var(--muted);
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+  }
+
+  .form-group input,
+  .form-group textarea {
+    width: 100%;
+    background: var(--navy);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 0.75rem 1rem;
+    color: var(--white);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.95rem;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+
+  .form-group input:focus,
+  .form-group textarea:focus {
+    border-color: var(--indigo);
+  }
+
+  .form-group textarea { resize: vertical; min-height: 100px; }
+
+  .btn-submit {
+    width: 100%;
+    background: var(--indigo);
+    color: var(--white);
+    border: none;
+    padding: 0.85rem;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 1rem;
+    font-family: 'DM Sans', sans-serif;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.15s;
+  }
+
+  .btn-submit:hover {
+    background: var(--indigo-light);
+    transform: translateY(-1px);
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 2.5rem 2rem;
+    text-align: center;
+    position: relative;
+    z-index: 1;
+  }
+
+  .footer-logo {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: 1.1rem;
+    color: var(--white);
+    margin-bottom: 0.5rem;
+  }
+
+  .footer-logo span { color: var(--indigo); }
+
+  footer p {
+    font-size: 0.85rem;
+    color: var(--muted);
+  }
+
+  .footer-links {
+    display: flex;
+    gap: 1.5rem;
+    justify-content: center;
+    margin-top: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .footer-links a {
+    font-size: 0.85rem;
+    color: var(--muted);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .footer-links a:hover { color: var(--indigo-light); }
+
+  /* ── DIVIDER ── */
+  .divider {
+    width: 100%;
+    height: 1px;
+    background: var(--border);
+    margin: 0;
+  }
+
+  /* ── ANIMATIONS ── */
+  .fade-in {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+
+  .fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ── MOBILE NAV ── */
+  @media (max-width: 600px) {
+    .nav-links { display: none; }
+    .hero h1 { font-size: 2.2rem; }
+    .hero-stats { gap: 1.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#home" class="nav-logo">AI<span>Coach</span>Kit</a>
+  <ul class="nav-links">
+    <li><a href="#produkt">Produkt</a></li>
+    <li><a href="#so-funktionierts">Wie es funktioniert</a></li>
+    <li><a href="#about">Über uns</a></li>
+    <li><a href="#kontakt">Kontakt</a></li>
+    <li><a href="https://aicoachkit.gumroad.com/l/dcblmq" target="_blank" class="nav-cta">Jetzt kaufen</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-glow"></div>
+  <div class="hero-inner">
+    <div class="hero-badge">🤖 KI-Tools für Fitness-Professionals</div>
+    <h1>Spare Stunden pro Woche –<br>mit fertigen <span class="accent">KI-Prompts</span></h1>
+    <p>50+ sofort einsetzbare Prompts für Fitness-Coaches. Trainingspläne, Content, Emails und Ernährungsberatung – in Sekunden statt Stunden.</p>
+    <div class="hero-btns">
+      <a href="https://aicoachkit.gumroad.com/l/dcblmq" target="_blank" class="btn-primary">Jetzt für 29 € kaufen</a>
+      <a href="#produkt" class="btn-secondary">Mehr erfahren</a>
+    </div>
+    <div class="hero-stats">
+      <div class="hero-stat"><strong>50+</strong><span>Prompts</span></div>
+      <div class="hero-stat"><strong>4</strong><span>Kategorien</span></div>
+      <div class="hero-stat"><strong>DE & EN</strong><span>Zweisprachig</span></div>
+      <div class="hero-stat"><strong>29 €</strong><span>Einmalig</span></div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- PROBLEM -->
+<section id="produkt">
+  <div class="container">
+    <p class="section-label fade-in">Das Problem</p>
+    <h2 class="section-title fade-in">Als Coach verbringst du zu viel Zeit<br>mit Schreiben</h2>
+    <p class="section-sub fade-in">Jede Stunde die du mit Texten verbringst, ist eine Stunde die du nicht coachst oder dein Business aufbaust.</p>
+    <div class="problem-grid">
+      <div class="problem-card fade-in">
+        <div class="problem-icon">📋</div>
+        <h3>Trainingspläne</h3>
+        <p>Individuell, detailliert, immer wieder neu – kostet 30–60 Minuten pro Klient.</p>
+      </div>
+      <div class="problem-card fade-in">
+        <div class="problem-icon">📱</div>
+        <h3>Social Media</h3>
+        <p>Täglich neuer Content – Captions, Hashtags, Story-Ideen. Zeitfresser Nummer eins.</p>
+      </div>
+      <div class="problem-card fade-in">
+        <div class="problem-icon">✉️</div>
+        <h3>Kunden-Emails</h3>
+        <p>Willkommen, Follow-up, Check-in, Upsell – jede Email von Grund auf neu schreiben.</p>
+      </div>
+      <div class="problem-card fade-in">
+        <div class="problem-icon">🥗</div>
+        <h3>Ernährungsberatung</h3>
+        <p>Pläne, Rezepte, Erklärungen – komplex, zeitintensiv, immer individuell.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- PROMPTS -->
+<section class="prompts-section">
+  <div class="container">
+    <p class="section-label fade-in">Die Lösung</p>
+    <h2 class="section-title fade-in">50+ Prompts – eine Kategorie<br>für jedes Problem</h2>
+    <p class="section-sub fade-in">Kopieren, einfügen, anpassen – fertig. Jeder Prompt ist auf Deutsch und Englisch verfügbar.</p>
+    <div class="categories">
+      <div class="cat-card fade-in">
+        <div class="cat-dot" style="background:#6366F1"></div>
+        <h3>Trainingspläne</h3>
+        <p class="cat-count">14 Prompts</p>
+        <div class="cat-examples">
+          <div class="cat-example">4-Wochen Hypertrophie-Plan</div>
+          <div class="cat-example">Heim-Workout ohne Equipment</div>
+          <div class="cat-example">Mobility für Anfänger</div>
+        </div>
+      </div>
+      <div class="cat-card fade-in">
+        <div class="cat-dot" style="background:#10B981"></div>
+        <h3>Social Media</h3>
+        <p class="cat-count">12 Prompts</p>
+        <div class="cat-examples">
+          <div class="cat-example">Instagram Captions + Hashtags</div>
+          <div class="cat-example">30-Tage Content-Kalender</div>
+          <div class="cat-example">TikTok Videokonzepte</div>
+        </div>
+      </div>
+      <div class="cat-card fade-in">
+        <div class="cat-dot" style="background:#F59E0B"></div>
+        <h3>Kunden-Emails</h3>
+        <p class="cat-count">12 Prompts</p>
+        <div class="cat-examples">
+          <div class="cat-example">Willkommens-Email</div>
+          <div class="cat-example">Follow-up & Re-engagement</div>
+          <div class="cat-example">Upsell-Sequenz</div>
+        </div>
+      </div>
+      <div class="cat-card fade-in">
+        <div class="cat-dot" style="background:#EC4899"></div>
+        <h3>Ernährung</h3>
+        <p class="cat-count">12 Prompts</p>
+        <div class="cat-examples">
+          <div class="cat-example">7-Tage Ernährungsplan</div>
+          <div class="cat-example">High-Protein Rezepte</div>
+          <div class="cat-example">Vegan & Meal Prep</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- HOW IT WORKS -->
+<section id="so-funktionierts">
+  <div class="container">
+    <p class="section-label fade-in">So einfach geht's</p>
+    <h2 class="section-title fade-in">In 4 Schritten zu<br>professionellen Ergebnissen</h2>
+    <div class="steps">
+      <div class="step fade-in">
+        <div class="step-num">01</div>
+        <h3>Kaufen & Downloaden</h3>
+        <p>Einmaliger Kauf, sofortiger Download als PDF.</p>
+      </div>
+      <div class="step fade-in">
+        <div class="step-num">02</div>
+        <h3>Prompt auswählen</h3>
+        <p>Passenden Prompt aus einer der 4 Kategorien wählen.</p>
+      </div>
+      <div class="step fade-in">
+        <div class="step-num">03</div>
+        <h3>Einfügen & Anpassen</h3>
+        <p>Prompt in ChatGPT oder Claude einfügen, Platzhalter ersetzen.</p>
+      </div>
+      <div class="step fade-in">
+        <div class="step-num">04</div>
+        <h3>Ergebnis nutzen</h3>
+        <p>Professionelles Ergebnis in unter 60 Sekunden – fertig.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- PRICING -->
+<section class="pricing-section">
+  <div class="container" style="text-align:center">
+    <p class="section-label fade-in">Preis</p>
+    <h2 class="section-title fade-in">Einmalig kaufen.<br>Für immer nutzen.</h2>
+    <div class="pricing-card fade-in">
+      <div class="pricing-badge">AI Prompt Pack</div>
+      <div class="pricing-price"><sup>€</sup>29</div>
+      <p class="pricing-note">Einmaliger Kauf – kein Abo, keine versteckten Kosten</p>
+      <ul class="pricing-features">
+        <li>50+ fertige KI-Prompts</li>
+        <li>4 Kategorien: Training, Content, Emails, Ernährung</li>
+        <li>Deutsch & Englisch</li>
+        <li>Kompatibel mit ChatGPT, Claude & Gemini</li>
+        <li>Sofort-Download als PDF</li>
+        <li>Lebenslanger Zugriff & kostenlose Updates</li>
+      </ul>
+      <a href="https://aicoachkit.gumroad.com/l/dcblmq" target="_blank" class="btn-buy">Jetzt kaufen – sofort downloaden</a>
+      <p class="pricing-guarantee">🔒 Sicherer Kauf über Gumroad &nbsp;·&nbsp; 📥 Sofortiger Download</p>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="container">
+    <div class="about-grid">
+      <div class="about-visual fade-in">
+        <div class="about-icon">🤖</div>
+        <h3>AICoachKit</h3>
+        <p>KI-Tools & Prompts speziell entwickelt für Fitness-Professionals</p>
+      </div>
+      <div class="about-text fade-in">
+        <p class="section-label">Über uns</p>
+        <h2 class="section-title">KI-Tools die wirklich<br>für Coaches gebaut sind</h2>
+        <p>AICoachKit entstand aus einer einfachen Beobachtung: Fitness-Coaches verbringen zu viel Zeit mit administrativen Aufgaben und zu wenig Zeit mit dem was sie lieben – coachen.</p>
+        <p>Wir kombinieren tiefes Fitness-Know-how mit dem Potenzial moderner KI, um praxisnahe Tools zu entwickeln die im Coaching-Alltag wirklich funktionieren.</p>
+        <div class="about-values">
+          <div class="about-value"><div class="about-value-dot"></div><span>Praxisnah – entwickelt mit echten Coaching-Szenarien</span></div>
+          <div class="about-value"><div class="about-value-dot"></div><span>Zweisprachig – maximale Reichweite für dein Business</span></div>
+          <div class="about-value"><div class="about-value-dot"></div><span>Kontinuierlich – regelmäßige Updates & neue Produkte</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- CONTACT -->
+<section class="contact-section" id="kontakt">
+  <div class="container">
+    <p class="section-label fade-in">Kontakt</p>
+    <h2 class="section-title fade-in">Fragen? Wir sind für<br>dich da.</h2>
+    <div class="contact-grid">
+      <div class="contact-info fade-in">
+        <div class="contact-item">
+          <div class="contact-item-icon">✉️</div>
+          <div>
+            <h4>Email</h4>
+            <a href="mailto:hello@aicoachkit.de">hello@aicoachkit.de</a>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-item-icon">🌐</div>
+          <div>
+            <h4>Website</h4>
+            <a href="https://aicoachkit.de">aicoachkit.de</a>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-item-icon">🛒</div>
+          <div>
+            <h4>Shop</h4>
+            <a href="https://aicoachkit.gumroad.com" target="_blank">aicoachkit.gumroad.com</a>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-item-icon">⏱️</div>
+          <div>
+            <h4>Antwortzeit</h4>
+            <p>In der Regel innerhalb von 24 Stunden</p>
+          </div>
+        </div>
+      </div>
+      <div class="contact-form fade-in">
+        <h3>Nachricht schreiben</h3>
+        <div class="form-group">
+          <label>Name</label>
+          <input type="text" placeholder="Dein Name">
+        </div>
+        <div class="form-group">
+          <label>Email</label>
+          <input type="email" placeholder="deine@email.de">
+        </div>
+        <div class="form-group">
+          <label>Nachricht</label>
+          <textarea placeholder="Wie können wir dir helfen?"></textarea>
+        </div>
+        <button class="btn-submit" onclick="handleSubmit()">Nachricht senden</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">AI<span>Coach</span>Kit</div>
+  <p>KI-Prompts & Tools für Fitness-Professionals</p>
+  <div class="footer-links">
+    <a href="#home">Start</a>
+    <a href="#produkt">Produkt</a>
+    <a href="#about">Über uns</a>
+    <a href="#kontakt">Kontakt</a>
+    <a href="https://aicoachkit.gumroad.com/l/dcblmq" target="_blank">Shop</a>
+  </div>
+  <p style="margin-top:1.5rem; font-size:0.8rem;">© 2026 AICoachKit · aicoachkit.de · hello@aicoachkit.de</p>
+</footer>
+
+<script>
+  // Fade-in on scroll
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('visible'), i * 80);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+  // Contact form
+  function handleSubmit() {
+    const btn = document.querySelector('.btn-submit');
+    btn.textContent = '✓ Gesendet!';
+    btn.style.background = '#10B981';
+    setTimeout(() => {
+      btn.textContent = 'Nachricht senden';
+      btn.style.background = '';
+    }, 3000);
+  }
+
+  // Active nav link highlight
+  const sections = document.querySelectorAll('section[id]');
+  window.addEventListener('scroll', () => {
+    let current = '';
+    sections.forEach(s => {
+      if (window.scrollY >= s.offsetTop - 120) current = s.id;
+    });
+    document.querySelectorAll('.nav-links a').forEach(a => {
+      a.style.color = a.getAttribute('href') === `#${current}` ? 'var(--white)' : '';
+    });
+  });
+</script>
+</body>
+</html>
