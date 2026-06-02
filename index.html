@@ -1,1021 +1,1382 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AICoachKit – KI-Prompts für Fitness-Coaches</title>
-<meta name="description" content="50+ fertige KI-Prompts für Fitness-Coaches. Spare Stunden pro Woche bei Trainingsplänen, Content, Emails & Ernährungsberatung.">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
-<style>
-  :root {
-    --navy: #0B1120;
-    --navy2: #141E33;
-    --card: #1A2540;
-    --indigo: #6366F1;
-    --indigo-light: #818CF8;
-    --indigo-glow: rgba(99,102,241,0.15);
-    --green: #10B981;
-    --yellow: #F59E0B;
-    --pink: #EC4899;
-    --white: #FFFFFF;
-    --muted: #94A3B8;
-    --light: #CBD5E1;
-    --border: rgba(99,102,241,0.2);
-  }
-
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-  html { scroll-behavior: smooth; }
-
-  body {
-    background: var(--navy);
-    color: var(--light);
-    font-family: 'DM Sans', sans-serif;
-    font-size: 16px;
-    line-height: 1.7;
-    overflow-x: hidden;
-  }
-
-  h1,h2,h3,h4 {
-    font-family: 'Syne', sans-serif;
-    color: var(--white);
-    line-height: 1.2;
-  }
-
-  /* ── NOISE TEXTURE ── */
-  body::before {
-    content: '';
-    position: fixed;
-    inset: 0;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
-    pointer-events: none;
-    z-index: 0;
-    opacity: 0.4;
-  }
-
-  /* ── NAV ── */
-  nav {
-    position: fixed;
-    top: 0; left: 0; right: 0;
-    z-index: 100;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 1.2rem 2rem;
-    background: rgba(11,17,32,0.85);
-    backdrop-filter: blur(12px);
-    border-bottom: 1px solid var(--border);
-  }
-
-  .nav-logo {
-    font-family: 'Syne', sans-serif;
-    font-weight: 800;
-    font-size: 1.2rem;
-    color: var(--white);
-    text-decoration: none;
-    letter-spacing: -0.02em;
-  }
-
-  .nav-logo span { color: var(--indigo); }
-
-  .nav-links {
-    display: flex;
-    gap: 2rem;
-    list-style: none;
-  }
-
-  .nav-links a {
-    color: var(--muted);
-    text-decoration: none;
-    font-size: 0.9rem;
-    font-weight: 500;
-    transition: color 0.2s;
-  }
-
-  .nav-links a:hover { color: var(--white); }
-
-  .nav-cta {
-    background: var(--indigo);
-    color: var(--white) !important;
-    padding: 0.5rem 1.2rem;
-    border-radius: 8px;
-    font-weight: 600 !important;
-    transition: background 0.2s, transform 0.15s !important;
-  }
-
-  .nav-cta:hover {
-    background: var(--indigo-light) !important;
-    transform: translateY(-1px);
-  }
-
-  /* ── HERO ── */
-  .hero {
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    padding: 8rem 2rem 4rem;
-    position: relative;
-  }
-
-  .hero-glow {
-    position: absolute;
-    top: 20%;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 600px;
-    height: 600px;
-    background: radial-gradient(circle, rgba(99,102,241,0.12) 0%, transparent 70%);
-    pointer-events: none;
-  }
-
-  .hero-inner { max-width: 760px; position: relative; z-index: 1; }
-
-  .hero-badge {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    background: var(--indigo-glow);
-    border: 1px solid var(--border);
-    color: var(--indigo-light);
-    font-size: 0.8rem;
-    font-weight: 600;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    padding: 0.4rem 1rem;
-    border-radius: 999px;
-    margin-bottom: 1.5rem;
-  }
-
-  .hero h1 {
-    font-size: clamp(2.4rem, 6vw, 4rem);
-    font-weight: 800;
-    letter-spacing: -0.03em;
-    margin-bottom: 1.2rem;
-    line-height: 1.1;
-  }
-
-  .hero h1 .accent { color: var(--indigo); }
-
-  .hero p {
-    font-size: 1.15rem;
-    color: var(--muted);
-    max-width: 540px;
-    margin: 0 auto 2.5rem;
-    font-weight: 300;
-  }
-
-  .hero-btns {
-    display: flex;
-    gap: 1rem;
-    justify-content: center;
-    flex-wrap: wrap;
-  }
-
-  .btn-primary {
-    background: var(--indigo);
-    color: var(--white);
-    padding: 0.85rem 2rem;
-    border-radius: 10px;
-    font-weight: 600;
-    font-size: 1rem;
-    text-decoration: none;
-    transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
-    box-shadow: 0 0 24px rgba(99,102,241,0.3);
-  }
-
-  .btn-primary:hover {
-    background: var(--indigo-light);
-    transform: translateY(-2px);
-    box-shadow: 0 0 36px rgba(99,102,241,0.45);
-  }
-
-  .btn-secondary {
-    background: transparent;
-    color: var(--light);
-    padding: 0.85rem 2rem;
-    border-radius: 10px;
-    font-weight: 500;
-    font-size: 1rem;
-    text-decoration: none;
-    border: 1px solid var(--border);
-    transition: border-color 0.2s, color 0.2s, transform 0.15s;
-  }
-
-  .btn-secondary:hover {
-    border-color: var(--indigo);
-    color: var(--white);
-    transform: translateY(-2px);
-  }
-
-  .hero-stats {
-    display: flex;
-    gap: 2.5rem;
-    justify-content: center;
-    margin-top: 3.5rem;
-    flex-wrap: wrap;
-  }
-
-  .hero-stat strong {
-    display: block;
-    font-family: 'Syne', sans-serif;
-    font-size: 1.8rem;
-    font-weight: 800;
-    color: var(--white);
-  }
-
-  .hero-stat span {
-    font-size: 0.8rem;
-    color: var(--muted);
-    letter-spacing: 0.05em;
-    text-transform: uppercase;
-  }
-
-  /* ── SECTIONS ── */
-  section { padding: 5rem 2rem; position: relative; z-index: 1; }
-
-  .container { max-width: 1000px; margin: 0 auto; }
-
-  .section-label {
-    font-size: 0.75rem;
-    font-weight: 700;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: var(--indigo);
-    margin-bottom: 0.75rem;
-  }
-
-  .section-title {
-    font-size: clamp(1.8rem, 4vw, 2.6rem);
-    font-weight: 800;
-    letter-spacing: -0.02em;
-    margin-bottom: 1rem;
-  }
-
-  .section-sub {
-    color: var(--muted);
-    font-size: 1.05rem;
-    max-width: 520px;
-    font-weight: 300;
-  }
-
-  /* ── PROBLEM ── */
-  .problem-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 1.2rem;
-    margin-top: 3rem;
-  }
-
-  .problem-card {
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: 14px;
-    padding: 1.5rem;
-    position: relative;
-    overflow: hidden;
-    transition: border-color 0.2s, transform 0.2s;
-  }
-
-  .problem-card:hover {
-    border-color: rgba(99,102,241,0.5);
-    transform: translateY(-3px);
-  }
-
-  .problem-card::before {
-    content: '';
-    position: absolute;
-    top: 0; left: 0; right: 0;
-    height: 2px;
-    background: var(--indigo);
-    opacity: 0;
-    transition: opacity 0.2s;
-  }
-
-  .problem-card:hover::before { opacity: 1; }
-
-  .problem-icon {
-    font-size: 1.6rem;
-    margin-bottom: 0.75rem;
-  }
-
-  .problem-card h3 {
-    font-size: 1rem;
-    font-weight: 700;
-    margin-bottom: 0.4rem;
-  }
-
-  .problem-card p {
-    font-size: 0.88rem;
-    color: var(--muted);
-    line-height: 1.6;
-  }
-
-  /* ── PROMPTS PREVIEW ── */
-  .prompts-section { background: var(--navy2); }
-
-  .categories {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 1rem;
-    margin-top: 3rem;
-  }
-
-  .cat-card {
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: 14px;
-    padding: 1.5rem;
-    transition: transform 0.2s, box-shadow 0.2s;
-  }
-
-  .cat-card:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 8px 32px rgba(0,0,0,0.3);
-  }
-
-  .cat-dot {
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-    margin-bottom: 1rem;
-  }
-
-  .cat-card h3 {
-    font-size: 1rem;
-    font-weight: 700;
-    margin-bottom: 0.3rem;
-  }
-
-  .cat-count {
-    font-size: 0.8rem;
-    color: var(--muted);
-    margin-bottom: 1rem;
-  }
-
-  .cat-examples {
-    display: flex;
-    flex-direction: column;
-    gap: 0.4rem;
-  }
-
-  .cat-example {
-    font-size: 0.8rem;
-    color: var(--muted);
-    padding: 0.35rem 0.6rem;
-    background: rgba(255,255,255,0.03);
-    border-radius: 6px;
-    border-left: 2px solid var(--border);
-  }
-
-  /* ── HOW IT WORKS ── */
-  .steps {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 1.5rem;
-    margin-top: 3rem;
-    position: relative;
-  }
-
-  .step {
-    text-align: center;
-    padding: 2rem 1.5rem;
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: 14px;
-  }
-
-  .step-num {
-    width: 48px;
-    height: 48px;
-    border-radius: 12px;
-    background: var(--indigo-glow);
-    border: 1px solid var(--border);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-family: 'Syne', sans-serif;
-    font-weight: 800;
-    font-size: 1.1rem;
-    color: var(--indigo-light);
-    margin: 0 auto 1rem;
-  }
-
-  .step h3 { font-size: 1rem; margin-bottom: 0.4rem; }
-  .step p { font-size: 0.88rem; color: var(--muted); }
-
-  /* ── PRICING ── */
-  .pricing-section { background: var(--navy2); }
-
-  .pricing-card {
-    max-width: 440px;
-    margin: 3rem auto 0;
-    background: var(--card);
-    border: 1px solid var(--indigo);
-    border-radius: 20px;
-    padding: 2.5rem;
-    text-align: center;
-    box-shadow: 0 0 60px rgba(99,102,241,0.15);
-    position: relative;
-    overflow: hidden;
-  }
-
-  .pricing-card::before {
-    content: '';
-    position: absolute;
-    top: 0; left: 0; right: 0;
-    height: 3px;
-    background: linear-gradient(90deg, var(--indigo), var(--pink));
-  }
-
-  .pricing-badge {
-    display: inline-block;
-    background: var(--indigo-glow);
-    border: 1px solid var(--border);
-    color: var(--indigo-light);
-    font-size: 0.75rem;
-    font-weight: 700;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    padding: 0.3rem 0.9rem;
-    border-radius: 999px;
-    margin-bottom: 1.2rem;
-  }
-
-  .pricing-price {
-    font-family: 'Syne', sans-serif;
-    font-size: 3.5rem;
-    font-weight: 800;
-    color: var(--white);
-    line-height: 1;
-    margin-bottom: 0.3rem;
-  }
-
-  .pricing-price sup {
-    font-size: 1.5rem;
-    vertical-align: super;
-  }
-
-  .pricing-note {
-    font-size: 0.85rem;
-    color: var(--muted);
-    margin-bottom: 2rem;
-  }
-
-  .pricing-features {
-    list-style: none;
-    text-align: left;
-    margin-bottom: 2rem;
-    display: flex;
-    flex-direction: column;
-    gap: 0.75rem;
-  }
-
-  .pricing-features li {
-    display: flex;
-    align-items: flex-start;
-    gap: 0.75rem;
-    font-size: 0.95rem;
-  }
-
-  .pricing-features li::before {
-    content: '✓';
-    color: var(--green);
-    font-weight: 700;
-    flex-shrink: 0;
-    margin-top: 0.1rem;
-  }
-
-  .btn-buy {
-    display: block;
-    width: 100%;
-    background: var(--indigo);
-    color: var(--white);
-    padding: 1rem;
-    border-radius: 10px;
-    font-weight: 700;
-    font-size: 1.05rem;
-    text-decoration: none;
-    transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
-    box-shadow: 0 0 24px rgba(99,102,241,0.3);
-  }
-
-  .btn-buy:hover {
-    background: var(--indigo-light);
-    transform: translateY(-2px);
-    box-shadow: 0 0 40px rgba(99,102,241,0.5);
-  }
-
-  .pricing-guarantee {
-    margin-top: 1rem;
-    font-size: 0.8rem;
-    color: var(--muted);
-  }
-
-  /* ── ABOUT ── */
-  .about-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 4rem;
-    align-items: center;
-    margin-top: 3rem;
-  }
-
-  @media (max-width: 680px) {
-    .about-grid { grid-template-columns: 1fr; gap: 2rem; }
-  }
-
-  .about-visual {
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: 20px;
-    padding: 2.5rem;
-    text-align: center;
-  }
-
-  .about-icon {
-    font-size: 4rem;
-    margin-bottom: 1rem;
-  }
-
-  .about-visual h3 {
-    font-size: 1.3rem;
-    margin-bottom: 0.5rem;
-  }
-
-  .about-visual p {
-    font-size: 0.9rem;
-    color: var(--muted);
-  }
-
-  .about-text h2 { margin-bottom: 1rem; }
-
-  .about-text p {
-    color: var(--muted);
-    margin-bottom: 1rem;
-    font-weight: 300;
-  }
-
-  .about-values {
-    display: flex;
-    flex-direction: column;
-    gap: 0.75rem;
-    margin-top: 1.5rem;
-  }
-
-  .about-value {
-    display: flex;
-    align-items: flex-start;
-    gap: 0.75rem;
-    font-size: 0.9rem;
-  }
-
-  .about-value-dot {
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-    background: var(--indigo);
-    flex-shrink: 0;
-    margin-top: 0.55rem;
-  }
-
-  /* ── CONTACT ── */
-  .contact-section { background: var(--navy2); }
-
-  .contact-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 3rem;
-    margin-top: 3rem;
-    align-items: start;
-  }
-
-  @media (max-width: 680px) {
-    .contact-grid { grid-template-columns: 1fr; }
-  }
-
-  .contact-info { display: flex; flex-direction: column; gap: 1.2rem; }
-
-  .contact-item {
-    display: flex;
-    align-items: flex-start;
-    gap: 1rem;
-    padding: 1.2rem;
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: 12px;
-  }
-
-  .contact-item-icon {
-    font-size: 1.3rem;
-    flex-shrink: 0;
-  }
-
-  .contact-item h4 {
-    font-size: 0.85rem;
-    color: var(--muted);
-    font-family: 'DM Sans', sans-serif;
-    font-weight: 500;
-    margin-bottom: 0.2rem;
-  }
-
-  .contact-item a, .contact-item p {
-    font-size: 0.95rem;
-    color: var(--light);
-    text-decoration: none;
-  }
-
-  .contact-item a:hover { color: var(--indigo-light); }
-
-  .contact-form {
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: 16px;
-    padding: 2rem;
-  }
-
-  .contact-form h3 {
-    font-size: 1.2rem;
-    margin-bottom: 1.5rem;
-  }
-
-  .form-group { margin-bottom: 1.2rem; }
-
-  .form-group label {
-    display: block;
-    font-size: 0.85rem;
-    color: var(--muted);
-    margin-bottom: 0.5rem;
-    font-weight: 500;
-  }
-
-  .form-group input,
-  .form-group textarea {
-    width: 100%;
-    background: var(--navy);
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    padding: 0.75rem 1rem;
-    color: var(--white);
-    font-family: 'DM Sans', sans-serif;
-    font-size: 0.95rem;
-    outline: none;
-    transition: border-color 0.2s;
-  }
-
-  .form-group input:focus,
-  .form-group textarea:focus {
-    border-color: var(--indigo);
-  }
-
-  .form-group textarea { resize: vertical; min-height: 100px; }
-
-  .btn-submit {
-    width: 100%;
-    background: var(--indigo);
-    color: var(--white);
-    border: none;
-    padding: 0.85rem;
-    border-radius: 8px;
-    font-weight: 600;
-    font-size: 1rem;
-    font-family: 'DM Sans', sans-serif;
-    cursor: pointer;
-    transition: background 0.2s, transform 0.15s;
-  }
-
-  .btn-submit:hover {
-    background: var(--indigo-light);
-    transform: translateY(-1px);
-  }
-
-  /* ── FOOTER ── */
-  footer {
-    border-top: 1px solid var(--border);
-    padding: 2.5rem 2rem;
-    text-align: center;
-    position: relative;
-    z-index: 1;
-  }
-
-  .footer-logo {
-    font-family: 'Syne', sans-serif;
-    font-weight: 800;
-    font-size: 1.1rem;
-    color: var(--white);
-    margin-bottom: 0.5rem;
-  }
-
-  .footer-logo span { color: var(--indigo); }
-
-  footer p {
-    font-size: 0.85rem;
-    color: var(--muted);
-  }
-
-  .footer-links {
-    display: flex;
-    gap: 1.5rem;
-    justify-content: center;
-    margin-top: 1rem;
-    flex-wrap: wrap;
-  }
-
-  .footer-links a {
-    font-size: 0.85rem;
-    color: var(--muted);
-    text-decoration: none;
-    transition: color 0.2s;
-  }
-
-  .footer-links a:hover { color: var(--indigo-light); }
-
-  /* ── DIVIDER ── */
-  .divider {
-    width: 100%;
-    height: 1px;
-    background: var(--border);
-    margin: 0;
-  }
-
-  /* ── ANIMATIONS ── */
-  .fade-in {
-    opacity: 0;
-    transform: translateY(24px);
-    transition: opacity 0.6s ease, transform 0.6s ease;
-  }
-
-  .fade-in.visible {
-    opacity: 1;
-    transform: translateY(0);
-  }
-
-  /* ── MOBILE NAV ── */
-  @media (max-width: 600px) {
-    .nav-links { display: none; }
-    .hero h1 { font-size: 2.2rem; }
-    .hero-stats { gap: 1.5rem; }
-  }
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AICoachKit – KI-Prompts für Fitness-Coaches</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Syne:wght@700;800&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #060608;
+      --bg2: #0d0d12;
+      --bg3: #121218;
+      --border: rgba(255,255,255,0.07);
+      --border2: rgba(255,255,255,0.12);
+      --text: #f0f0f5;
+      --muted: #6b6b80;
+      --muted2: #9898aa;
+      --accent: #7c3aed;
+      --accent2: #a855f7;
+      --accent3: #c084fc;
+      --gold: #f59e0b;
+      --gold2: #fbbf24;
+      --green: #10b981;
+      --radius: 16px;
+      --radius2: 24px;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* ── NOISE TEXTURE ── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.035'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.4;
+    }
+
+    /* ── GLOW ORBS ── */
+    .orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(120px);
+      pointer-events: none;
+      z-index: 0;
+    }
+    .orb-1 { width: 600px; height: 600px; background: rgba(124,58,237,0.18); top: -200px; left: -150px; }
+    .orb-2 { width: 500px; height: 500px; background: rgba(168,85,247,0.12); top: 200px; right: -100px; }
+    .orb-3 { width: 400px; height: 400px; background: rgba(245,158,11,0.08); top: 600px; left: 50%; transform: translateX(-50%); }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 48px;
+      height: 72px;
+      background: rgba(6,6,8,0.7);
+      backdrop-filter: blur(20px) saturate(1.5);
+      border-bottom: 1px solid var(--border);
+      transition: background 0.3s;
+    }
+
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-family: 'Syne', sans-serif;
+      font-size: 1.15rem;
+      font-weight: 800;
+      color: var(--text);
+      text-decoration: none;
+      letter-spacing: -0.3px;
+    }
+    .nav-logo-icon {
+      width: 32px; height: 32px;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 16px;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 36px;
+      list-style: none;
+    }
+    .nav-links a {
+      color: var(--muted2);
+      text-decoration: none;
+      font-size: 0.875rem;
+      font-weight: 500;
+      letter-spacing: 0.01em;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--text); }
+
+    .nav-cta {
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      color: #fff !important;
+      padding: 10px 22px;
+      border-radius: 10px;
+      font-weight: 600 !important;
+      font-size: 0.875rem !important;
+      transition: opacity 0.2s, transform 0.2s !important;
+      box-shadow: 0 4px 20px rgba(124,58,237,0.35);
+    }
+    .nav-cta:hover { opacity: 0.9; transform: translateY(-1px); }
+
+    /* ── HERO ── */
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 120px 24px 80px;
+      overflow: hidden;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(124,58,237,0.12);
+      border: 1px solid rgba(124,58,237,0.3);
+      border-radius: 100px;
+      padding: 7px 18px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--accent3);
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      margin-bottom: 32px;
+      animation: fadeUp 0.8s ease both;
+    }
+    .hero-badge::before { content: ''; width: 6px; height: 6px; background: var(--accent3); border-radius: 50%; animation: pulse 2s infinite; }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.5; transform: scale(1.3); }
+    }
+
+    .hero h1 {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(3rem, 6vw, 5.5rem);
+      font-weight: 800;
+      line-height: 1.05;
+      letter-spacing: -0.03em;
+      max-width: 900px;
+      animation: fadeUp 0.8s 0.1s ease both;
+    }
+
+    .hero h1 .gradient {
+      background: linear-gradient(135deg, var(--accent2) 0%, var(--accent3) 40%, var(--gold2) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero-sub {
+      margin-top: 24px;
+      font-size: 1.2rem;
+      color: var(--muted2);
+      max-width: 560px;
+      line-height: 1.7;
+      animation: fadeUp 0.8s 0.2s ease both;
+    }
+
+    .hero-actions {
+      margin-top: 48px;
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      flex-wrap: wrap;
+      animation: fadeUp 0.8s 0.3s ease both;
+    }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: linear-gradient(135deg, var(--accent) 0%, var(--accent2) 100%);
+      color: #fff;
+      text-decoration: none;
+      padding: 16px 36px;
+      border-radius: 14px;
+      font-weight: 700;
+      font-size: 1rem;
+      letter-spacing: -0.01em;
+      box-shadow: 0 8px 32px rgba(124,58,237,0.4), 0 2px 8px rgba(0,0,0,0.3);
+      transition: transform 0.2s, box-shadow 0.2s;
+      position: relative;
+      overflow: hidden;
+    }
+    .btn-primary::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(255,255,255,0.15) 0%, transparent 60%);
+    }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 12px 40px rgba(124,58,237,0.55), 0 4px 12px rgba(0,0,0,0.3); }
+
+    .btn-secondary {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid var(--border2);
+      color: var(--text);
+      text-decoration: none;
+      padding: 16px 32px;
+      border-radius: 14px;
+      font-weight: 600;
+      font-size: 1rem;
+      transition: background 0.2s, border-color 0.2s;
+      backdrop-filter: blur(8px);
+    }
+    .btn-secondary:hover { background: rgba(255,255,255,0.1); border-color: rgba(255,255,255,0.2); }
+
+    .hero-stats {
+      margin-top: 72px;
+      display: flex;
+      gap: 48px;
+      justify-content: center;
+      flex-wrap: wrap;
+      animation: fadeUp 0.8s 0.4s ease both;
+    }
+    .stat {
+      text-align: center;
+    }
+    .stat-num {
+      font-family: 'Syne', sans-serif;
+      font-size: 2.2rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, var(--text), var(--muted2));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .stat-label { font-size: 0.8rem; color: var(--muted); font-weight: 500; text-transform: uppercase; letter-spacing: 0.08em; margin-top: 4px; }
+
+    .stat-divider { width: 1px; background: var(--border2); align-self: stretch; }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ── MARQUEE STRIP ── */
+    .marquee-strip {
+      position: relative;
+      overflow: hidden;
+      padding: 20px 0;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      background: rgba(255,255,255,0.02);
+    }
+    .marquee-track {
+      display: flex;
+      gap: 64px;
+      animation: marquee 30s linear infinite;
+      width: max-content;
+    }
+    .marquee-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: var(--muted);
+      font-size: 0.8rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      white-space: nowrap;
+    }
+    .marquee-dot { width: 4px; height: 4px; background: var(--accent2); border-radius: 50%; }
+    @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+    /* ── SECTION COMMON ── */
+    section { position: relative; z-index: 1; }
+
+    .section-tag {
+      display: inline-block;
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--accent3);
+      margin-bottom: 16px;
+    }
+
+    .section-title {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(2rem, 3.5vw, 3rem);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      line-height: 1.1;
+    }
+
+    .section-sub {
+      margin-top: 16px;
+      font-size: 1.05rem;
+      color: var(--muted2);
+      max-width: 520px;
+      line-height: 1.7;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 40px;
+    }
+
+    /* ── PROBLEM ── */
+    .problem {
+      padding: 140px 0;
+      background: var(--bg2);
+    }
+
+    .problem-header { text-align: center; }
+    .problem-header .section-sub { margin: 16px auto 0; }
+
+    .problem-grid {
+      margin-top: 80px;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 24px;
+    }
+
+    .problem-card {
+      background: var(--bg3);
+      border: 1px solid var(--border);
+      border-radius: var(--radius2);
+      padding: 40px;
+      position: relative;
+      overflow: hidden;
+      transition: border-color 0.3s, transform 0.3s;
+    }
+    .problem-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(124,58,237,0.05) 0%, transparent 60%);
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+    .problem-card:hover { border-color: rgba(124,58,237,0.3); transform: translateY(-4px); }
+    .problem-card:hover::before { opacity: 1; }
+
+    .problem-icon {
+      width: 52px; height: 52px;
+      background: rgba(124,58,237,0.12);
+      border: 1px solid rgba(124,58,237,0.2);
+      border-radius: 14px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 22px;
+      margin-bottom: 24px;
+    }
+
+    .problem-card h3 {
+      font-size: 1.2rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin-bottom: 12px;
+    }
+
+    .problem-card p { color: var(--muted2); font-size: 0.95rem; line-height: 1.7; }
+
+    .problem-time {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: 20px;
+      background: rgba(239,68,68,0.1);
+      border: 1px solid rgba(239,68,68,0.2);
+      color: #f87171;
+      border-radius: 100px;
+      padding: 5px 14px;
+      font-size: 0.78rem;
+      font-weight: 600;
+    }
+
+    /* ── SOLUTION ── */
+    .solution {
+      padding: 140px 0;
+    }
+    .solution-header { text-align: center; margin-bottom: 80px; }
+    .solution-header .section-sub { margin: 16px auto 0; }
+
+    .solution-tabs {
+      display: flex;
+      gap: 8px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-bottom: 48px;
+    }
+
+    .tab {
+      padding: 10px 22px;
+      border-radius: 100px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--muted2);
+      font-size: 0.875rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+      font-family: 'Inter', sans-serif;
+    }
+    .tab.active, .tab:hover {
+      background: rgba(124,58,237,0.15);
+      border-color: rgba(124,58,237,0.4);
+      color: var(--accent3);
+    }
+
+    .solution-cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    .sol-card {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius2);
+      padding: 32px;
+      position: relative;
+      overflow: hidden;
+      transition: border-color 0.3s, transform 0.3s;
+    }
+    .sol-card:hover { border-color: var(--border2); transform: translateY(-4px); }
+
+    .sol-card-number {
+      font-family: 'Syne', sans-serif;
+      font-size: 4rem;
+      font-weight: 800;
+      color: rgba(255,255,255,0.04);
+      position: absolute;
+      top: 16px; right: 24px;
+      line-height: 1;
+    }
+
+    .sol-card-tag {
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--accent3);
+      margin-bottom: 12px;
+    }
+
+    .sol-card h3 {
+      font-size: 1.05rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin-bottom: 16px;
+    }
+
+    .sol-card-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .sol-card-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      font-size: 0.875rem;
+      color: var(--muted2);
+    }
+    .sol-card-list li::before {
+      content: '→';
+      color: var(--accent3);
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    /* ── HOW IT WORKS ── */
+    .how {
+      padding: 140px 0;
+      background: var(--bg2);
+    }
+
+    .how-header { text-align: center; margin-bottom: 80px; }
+    .how-header .section-sub { margin: 16px auto 0; }
+
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0;
+      position: relative;
+    }
+
+    .steps::before {
+      content: '';
+      position: absolute;
+      top: 40px;
+      left: calc(12.5%);
+      right: calc(12.5%);
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--border2), var(--accent), var(--accent2), var(--border2), transparent);
+      z-index: 0;
+    }
+
+    .step {
+      text-align: center;
+      padding: 0 24px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .step-num {
+      width: 80px; height: 80px;
+      margin: 0 auto 32px;
+      background: var(--bg3);
+      border: 1px solid var(--border2);
+      border-radius: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Syne', sans-serif;
+      font-size: 1.6rem;
+      font-weight: 800;
+      position: relative;
+    }
+
+    .step:nth-child(1) .step-num { background: linear-gradient(135deg, rgba(124,58,237,0.2), rgba(124,58,237,0.05)); border-color: rgba(124,58,237,0.4); color: var(--accent3); }
+    .step:nth-child(2) .step-num { background: linear-gradient(135deg, rgba(168,85,247,0.2), rgba(168,85,247,0.05)); border-color: rgba(168,85,247,0.4); color: var(--accent2); }
+    .step:nth-child(3) .step-num { background: linear-gradient(135deg, rgba(192,132,252,0.2), rgba(192,132,252,0.05)); border-color: rgba(192,132,252,0.4); color: var(--accent3); }
+    .step:nth-child(4) .step-num { background: linear-gradient(135deg, rgba(245,158,11,0.2), rgba(245,158,11,0.05)); border-color: rgba(245,158,11,0.4); color: var(--gold2); }
+
+    .step h3 { font-size: 1rem; font-weight: 700; letter-spacing: -0.01em; margin-bottom: 10px; }
+    .step p { font-size: 0.875rem; color: var(--muted2); line-height: 1.6; }
+
+    /* ── TESTIMONIALS ── */
+    .testimonials {
+      padding: 140px 0;
+    }
+    .testimonials-header { text-align: center; margin-bottom: 80px; }
+    .testimonials-header .section-sub { margin: 16px auto 0; }
+
+    .testi-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    .testi-card {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius2);
+      padding: 36px;
+      position: relative;
+      transition: border-color 0.3s, transform 0.3s;
+    }
+    .testi-card:hover { border-color: var(--border2); transform: translateY(-4px); }
+
+    .testi-stars {
+      display: flex;
+      gap: 4px;
+      color: var(--gold2);
+      font-size: 14px;
+      margin-bottom: 20px;
+    }
+
+    .testi-quote {
+      font-size: 0.95rem;
+      line-height: 1.75;
+      color: var(--muted2);
+      margin-bottom: 28px;
+      font-style: italic;
+    }
+
+    .testi-author {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .testi-avatar {
+      width: 44px; height: 44px;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 800;
+      font-size: 0.9rem;
+      flex-shrink: 0;
+    }
+
+    .testi-name { font-size: 0.9rem; font-weight: 700; }
+    .testi-role { font-size: 0.78rem; color: var(--muted); }
+
+    /* ── PRICING ── */
+    .pricing {
+      padding: 140px 0;
+      background: var(--bg2);
+    }
+
+    .pricing-header { text-align: center; margin-bottom: 80px; }
+    .pricing-header .section-sub { margin: 16px auto 0; }
+
+    .pricing-card-wrap {
+      max-width: 520px;
+      margin: 0 auto;
+    }
+
+    .pricing-card {
+      background: var(--bg3);
+      border: 1px solid rgba(124,58,237,0.3);
+      border-radius: 32px;
+      padding: 56px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .pricing-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--accent2), transparent);
+    }
+
+    .pricing-card-glow {
+      position: absolute;
+      width: 400px; height: 400px;
+      background: rgba(124,58,237,0.12);
+      border-radius: 50%;
+      filter: blur(80px);
+      top: -100px; right: -100px;
+      pointer-events: none;
+    }
+
+    .pricing-label {
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--accent3);
+      margin-bottom: 12px;
+    }
+
+    .pricing-title {
+      font-family: 'Syne', sans-serif;
+      font-size: 1.8rem;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      margin-bottom: 32px;
+    }
+
+    .price-row {
+      display: flex;
+      align-items: baseline;
+      gap: 8px;
+      margin-bottom: 8px;
+    }
+
+    .price-amount {
+      font-family: 'Syne', sans-serif;
+      font-size: 5rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, var(--text), var(--muted2));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      line-height: 1;
+    }
+
+    .price-currency {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--muted2);
+    }
+
+    .price-note {
+      font-size: 0.85rem;
+      color: var(--muted);
+      margin-bottom: 40px;
+    }
+
+    .pricing-divider {
+      height: 1px;
+      background: var(--border);
+      margin: 36px 0;
+    }
+
+    .pricing-features {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      margin-bottom: 44px;
+    }
+
+    .pricing-features li {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      font-size: 0.95rem;
+      color: var(--muted2);
+    }
+
+    .feature-check {
+      width: 22px; height: 22px;
+      background: rgba(16,185,129,0.1);
+      border: 1px solid rgba(16,185,129,0.25);
+      border-radius: 6px;
+      display: flex; align-items: center; justify-content: center;
+      color: var(--green);
+      font-size: 12px;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    .pricing-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      background: linear-gradient(135deg, var(--accent) 0%, var(--accent2) 100%);
+      color: #fff;
+      text-decoration: none;
+      padding: 18px 36px;
+      border-radius: 16px;
+      font-weight: 700;
+      font-size: 1.05rem;
+      box-shadow: 0 8px 32px rgba(124,58,237,0.4);
+      transition: transform 0.2s, box-shadow 0.2s;
+      position: relative;
+      overflow: hidden;
+      width: 100%;
+      text-align: center;
+    }
+    .pricing-btn::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(255,255,255,0.15) 0%, transparent 60%);
+    }
+    .pricing-btn:hover { transform: translateY(-2px); box-shadow: 0 12px 40px rgba(124,58,237,0.55); }
+
+    .pricing-trust {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 20px;
+      margin-top: 24px;
+      flex-wrap: wrap;
+    }
+
+    .trust-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.78rem;
+      color: var(--muted);
+      font-weight: 500;
+    }
+
+    /* ── FAQ ── */
+    .faq {
+      padding: 140px 0;
+    }
+    .faq-header { text-align: center; margin-bottom: 80px; }
+    .faq-header .section-sub { margin: 16px auto 0; }
+
+    .faq-list {
+      max-width: 720px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .faq-item {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      transition: border-color 0.2s;
+    }
+    .faq-item:hover { border-color: var(--border2); }
+
+    .faq-q {
+      width: 100%;
+      background: none;
+      border: none;
+      color: var(--text);
+      text-align: left;
+      padding: 24px 28px;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.975rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      letter-spacing: -0.01em;
+    }
+
+    .faq-icon {
+      width: 28px; height: 28px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 16px;
+      flex-shrink: 0;
+      color: var(--muted2);
+      transition: background 0.2s, color 0.2s;
+    }
+
+    .faq-item.open .faq-icon { background: rgba(124,58,237,0.15); border-color: rgba(124,58,237,0.3); color: var(--accent3); }
+
+    .faq-a {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.35s ease, padding 0.35s;
+    }
+    .faq-item.open .faq-a { max-height: 200px; }
+
+    .faq-a-inner {
+      padding: 0 28px 24px;
+      font-size: 0.9rem;
+      color: var(--muted2);
+      line-height: 1.75;
+    }
+
+    /* ── CTA BANNER ── */
+    .cta-banner {
+      padding: 140px 0;
+      background: var(--bg2);
+    }
+
+    .cta-inner {
+      max-width: 800px;
+      margin: 0 auto;
+      text-align: center;
+      padding: 80px 60px;
+      background: var(--bg3);
+      border: 1px solid rgba(124,58,237,0.25);
+      border-radius: 40px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cta-inner::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--accent2) 30%, var(--gold2) 70%, transparent);
+    }
+
+    .cta-glow-1 {
+      position: absolute;
+      width: 300px; height: 300px;
+      background: rgba(124,58,237,0.15);
+      filter: blur(80px);
+      top: -80px; left: -80px;
+      border-radius: 50%;
+      pointer-events: none;
+    }
+    .cta-glow-2 {
+      position: absolute;
+      width: 300px; height: 300px;
+      background: rgba(245,158,11,0.1);
+      filter: blur(80px);
+      bottom: -80px; right: -80px;
+      border-radius: 50%;
+      pointer-events: none;
+    }
+
+    .cta-inner h2 {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      line-height: 1.1;
+      margin-bottom: 20px;
+      position: relative;
+    }
+
+    .cta-inner p {
+      font-size: 1.05rem;
+      color: var(--muted2);
+      line-height: 1.7;
+      margin-bottom: 48px;
+      position: relative;
+    }
+
+    .cta-btn-wrap {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      flex-wrap: wrap;
+      position: relative;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 60px 0 40px;
+      background: var(--bg);
+    }
+
+    .footer-inner {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 48px;
+      flex-wrap: wrap;
+      margin-bottom: 48px;
+    }
+
+    .footer-brand {
+      max-width: 280px;
+    }
+
+    .footer-brand p {
+      margin-top: 16px;
+      font-size: 0.875rem;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    .footer-links h4 {
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--muted);
+      margin-bottom: 16px;
+    }
+
+    .footer-links ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .footer-links a {
+      color: var(--muted2);
+      text-decoration: none;
+      font-size: 0.875rem;
+      transition: color 0.2s;
+    }
+    .footer-links a:hover { color: var(--text); }
+
+    .footer-bottom {
+      border-top: 1px solid var(--border);
+      padding-top: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .footer-bottom p { font-size: 0.8rem; color: var(--muted); }
+
+    /* ── SCROLL ANIMATIONS ── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(32px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ── MOBILE ── */
+    @media (max-width: 768px) {
+      nav { padding: 0 20px; }
+      .nav-links { display: none; }
+      .problem-grid { grid-template-columns: 1fr; }
+      .solution-cards { grid-template-columns: 1fr; }
+      .steps { grid-template-columns: repeat(2, 1fr); gap: 40px; }
+      .steps::before { display: none; }
+      .testi-grid { grid-template-columns: 1fr; }
+      .container { padding: 0 20px; }
+      .hero-stats { gap: 24px; }
+      .stat-divider { display: none; }
+      .cta-inner { padding: 48px 24px; }
+      .pricing-card { padding: 36px 28px; }
+      .footer-inner { flex-direction: column; }
+    }
+  </style>
 </head>
 <body>
 
 <!-- NAV -->
 <nav>
-  <a href="#home" class="nav-logo">AI<span>Coach</span>Kit</a>
+  <a href="#home" class="nav-logo">
+    <div class="nav-logo-icon">🤖</div>
+    AICoachKit
+  </a>
   <ul class="nav-links">
     <li><a href="#produkt">Produkt</a></li>
     <li><a href="#so-funktionierts">Wie es funktioniert</a></li>
     <li><a href="#about">Über uns</a></li>
     <li><a href="#kontakt">Kontakt</a></li>
-    <li><a href="https://aicoachkit.gumroad.com/l/dcblmq" target="_blank" class="nav-cta">Jetzt kaufen</a></li>
+    <li><a href="https://aicoachkit.gumroad.com/l/dcblmq" class="nav-cta">Jetzt kaufen</a></li>
   </ul>
 </nav>
 
 <!-- HERO -->
 <section class="hero" id="home">
-  <div class="hero-glow"></div>
-  <div class="hero-inner">
-    <div class="hero-badge">🤖 KI-Tools für Fitness-Professionals</div>
-    <h1>Spare Stunden pro Woche –<br>mit fertigen <span class="accent">KI-Prompts</span></h1>
-    <p>50+ sofort einsetzbare Prompts für Fitness-Coaches. Trainingspläne, Content, Emails und Ernährungsberatung – in Sekunden statt Stunden.</p>
-    <div class="hero-btns">
-      <a href="https://aicoachkit.gumroad.com/l/dcblmq" target="_blank" class="btn-primary">Jetzt für 29 € kaufen</a>
-      <a href="#produkt" class="btn-secondary">Mehr erfahren</a>
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+  <div class="orb orb-3"></div>
+
+  <div class="hero-badge">KI-Tools für Fitness-Professionals</div>
+
+  <h1>Spare Stunden pro Woche –<br/><span class="gradient">mit fertigen KI-Prompts</span></h1>
+
+  <p class="hero-sub">50+ sofort einsetzbare Prompts für Fitness-Coaches. Trainingspläne, Content, Emails und Ernährungsberatung – in Sekunden statt Stunden.</p>
+
+  <div class="hero-actions">
+    <a href="https://aicoachkit.gumroad.com/l/dcblmq" class="btn-primary">
+      Jetzt für 29 € kaufen ↗
+    </a>
+    <a href="#produkt" class="btn-secondary">
+      Mehr erfahren
+    </a>
+  </div>
+
+  <div class="hero-stats">
+    <div class="stat">
+      <div class="stat-num">50+</div>
+      <div class="stat-label">Prompts enthalten</div>
     </div>
-    <div class="hero-stats">
-      <div class="hero-stat"><strong>50+</strong><span>Prompts</span></div>
-      <div class="hero-stat"><strong>4</strong><span>Kategorien</span></div>
-      <div class="hero-stat"><strong>DE & EN</strong><span>Zweisprachig</span></div>
-      <div class="hero-stat"><strong>29 €</strong><span>Einmalig</span></div>
+    <div class="stat-divider"></div>
+    <div class="stat">
+      <div class="stat-num">4</div>
+      <div class="stat-label">Kategorien</div>
+    </div>
+    <div class="stat-divider"></div>
+    <div class="stat">
+      <div class="stat-num">DE & EN</div>
+      <div class="stat-label">Zweisprachig</div>
+    </div>
+    <div class="stat-divider"></div>
+    <div class="stat">
+      <div class="stat-num">29 €</div>
+      <div class="stat-label">Einmalig · Kein Abo</div>
     </div>
   </div>
 </section>
 
-<div class="divider"></div>
+<!-- MARQUEE -->
+<div class="marquee-strip">
+  <div class="marquee-track">
+    <div class="marquee-item"><span class="marquee-dot"></span> ChatGPT kompatibel</div>
+    <div class="marquee-item"><span class="marquee-dot"></span> Claude kompatibel</div>
+    <div class="marquee-item"><span class="marquee-dot"></span> Gemini kompatibel</div>
+    <div class="marquee-item"><span class="marquee-dot"></span> Sofortiger PDF-Download</div>
+    <div class="marquee-item"><span class="marquee-dot"></span> Lebenslanger Zugriff</div>
+    <div class="marquee-item"><span class="marquee-dot"></span> Kostenlose Updates</div>
+    <div class="marquee-item"><span class="marquee-dot"></span> Sicherer Kauf via Gumroad</div>
+    <div class="marquee-item"><span class="marquee-dot"></span> Deutsch & Englisch</div>
+    <!-- duplicate -->
+    <div class="marquee-item"><span class="marquee-dot"></span> ChatGPT kompatibel</div>
+    <div class="marquee-item"><span class="marquee-dot"></span> Claude kompatibel</div>
+    <div class="marquee-item"><span class="marquee-dot"></span> Gemini kompatibel</div>
+    <div class="marquee-item"><span class="marquee-dot"></span> Sofortiger PDF-Download</div>
+    <div class="marquee-item"><span class="marquee-dot"></span> Lebenslanger Zugriff</div>
+    <div class="marquee-item"><span class="marquee-dot"></span> Kostenlose Updates</div>
+    <div class="marquee-item"><span class="marquee-dot"></span> Sicherer Kauf via Gumroad</div>
+    <div class="marquee-item"><span class="marquee-dot"></span> Deutsch & Englisch</div>
+  </div>
+</div>
 
 <!-- PROBLEM -->
-<section id="produkt">
+<section class="problem reveal" id="produkt">
   <div class="container">
-    <p class="section-label fade-in">Das Problem</p>
-    <h2 class="section-title fade-in">Als Coach verbringst du zu viel Zeit<br>mit Schreiben</h2>
-    <p class="section-sub fade-in">Jede Stunde die du mit Texten verbringst, ist eine Stunde die du nicht coachst oder dein Business aufbaust.</p>
+    <div class="problem-header">
+      <span class="section-tag">Das Problem</span>
+      <h2 class="section-title">Als Coach verbringst du zu viel<br/>Zeit mit Schreiben</h2>
+      <p class="section-sub">Jede Stunde die du mit Texten verbringst, ist eine Stunde die du nicht coachst oder dein Business aufbaust.</p>
+    </div>
+
     <div class="problem-grid">
-      <div class="problem-card fade-in">
+      <div class="problem-card">
         <div class="problem-icon">📋</div>
-        <h3>Trainingspläne</h3>
-        <p>Individuell, detailliert, immer wieder neu – kostet 30–60 Minuten pro Klient.</p>
+        <h3>Trainingspläne erstellen</h3>
+        <p>Individuell, detailliert, immer wieder neu – kostet wertvolle Zeit die du stattdessen in deine Klienten investieren könntest.</p>
+        <span class="problem-time">⏱ 30–60 min pro Klient</span>
       </div>
-      <div class="problem-card fade-in">
+      <div class="problem-card">
         <div class="problem-icon">📱</div>
-        <h3>Social Media</h3>
-        <p>Täglich neuer Content – Captions, Hashtags, Story-Ideen. Zeitfresser Nummer eins.</p>
+        <h3>Social Media Content</h3>
+        <p>Täglich neuer Content – Captions, Hashtags, Story-Ideen. Der größte Zeitfresser im modernen Coaching-Business.</p>
+        <span class="problem-time">⏱ 1–2 Stunden täglich</span>
       </div>
-      <div class="problem-card fade-in">
+      <div class="problem-card">
         <div class="problem-icon">✉️</div>
-        <h3>Kunden-Emails</h3>
-        <p>Willkommen, Follow-up, Check-in, Upsell – jede Email von Grund auf neu schreiben.</p>
+        <h3>Kunden-Emails schreiben</h3>
+        <p>Willkommen, Follow-up, Check-in, Upsell – jede Email von Grund auf neu schreiben. Immer und immer wieder.</p>
+        <span class="problem-time">⏱ 15–30 min pro Email</span>
       </div>
-      <div class="problem-card fade-in">
+      <div class="problem-card">
         <div class="problem-icon">🥗</div>
         <h3>Ernährungsberatung</h3>
-        <p>Pläne, Rezepte, Erklärungen – komplex, zeitintensiv, immer individuell.</p>
+        <p>Pläne, Rezepte, Erklärungen – komplex, zeitintensiv und immer individuell. Kaum zu skalieren ohne die richtige Unterstützung.</p>
+        <span class="problem-time">⏱ 45–90 min pro Plan</span>
       </div>
     </div>
   </div>
 </section>
 
-<div class="divider"></div>
-
-<!-- PROMPTS -->
-<section class="prompts-section">
+<!-- SOLUTION -->
+<section class="solution reveal" id="so-funktionierts">
   <div class="container">
-    <p class="section-label fade-in">Die Lösung</p>
-    <h2 class="section-title fade-in">50+ Prompts – eine Kategorie<br>für jedes Problem</h2>
-    <p class="section-sub fade-in">Kopieren, einfügen, anpassen – fertig. Jeder Prompt ist auf Deutsch und Englisch verfügbar.</p>
-    <div class="categories">
-      <div class="cat-card fade-in">
-        <div class="cat-dot" style="background:#6366F1"></div>
-        <h3>Trainingspläne</h3>
-        <p class="cat-count">14 Prompts</p>
-        <div class="cat-examples">
-          <div class="cat-example">4-Wochen Hypertrophie-Plan</div>
-          <div class="cat-example">Heim-Workout ohne Equipment</div>
-          <div class="cat-example">Mobility für Anfänger</div>
-        </div>
+    <div class="solution-header">
+      <span class="section-tag">Die Lösung</span>
+      <h2 class="section-title">50+ Prompts – eine Kategorie<br/>für jedes Problem</h2>
+      <p class="section-sub">Kopieren, einfügen, anpassen – fertig. Jeder Prompt ist auf Deutsch und Englisch verfügbar.</p>
+    </div>
+
+    <div class="solution-cards">
+      <div class="sol-card">
+        <div class="sol-card-number">14</div>
+        <div class="sol-card-tag">Trainingspläne</div>
+        <h3>Professionelle Pläne in Sekunden</h3>
+        <ul class="sol-card-list">
+          <li>4-Wochen Hypertrophie-Plan</li>
+          <li>Heim-Workout ohne Equipment</li>
+          <li>Mobility für Anfänger</li>
+          <li>Kraft & Ausdauer Kombi</li>
+          <li>+ 10 weitere Prompts</li>
+        </ul>
       </div>
-      <div class="cat-card fade-in">
-        <div class="cat-dot" style="background:#10B981"></div>
-        <h3>Social Media</h3>
-        <p class="cat-count">12 Prompts</p>
-        <div class="cat-examples">
-          <div class="cat-example">Instagram Captions + Hashtags</div>
-          <div class="cat-example">30-Tage Content-Kalender</div>
-          <div class="cat-example">TikTok Videokonzepte</div>
-        </div>
+      <div class="sol-card">
+        <div class="sol-card-number">12</div>
+        <div class="sol-card-tag">Social Media</div>
+        <h3>Content der wirklich performt</h3>
+        <ul class="sol-card-list">
+          <li>Instagram Captions + Hashtags</li>
+          <li>30-Tage Content-Kalender</li>
+          <li>TikTok Videokonzepte</li>
+          <li>Reel-Skripte & Story-Ideen</li>
+          <li>+ 8 weitere Prompts</li>
+        </ul>
       </div>
-      <div class="cat-card fade-in">
-        <div class="cat-dot" style="background:#F59E0B"></div>
-        <h3>Kunden-Emails</h3>
-        <p class="cat-count">12 Prompts</p>
-        <div class="cat-examples">
-          <div class="cat-example">Willkommens-Email</div>
-          <div class="cat-example">Follow-up & Re-engagement</div>
-          <div class="cat-example">Upsell-Sequenz</div>
-        </div>
-      </div>
-      <div class="cat-card fade-in">
-        <div class="cat-dot" style="background:#EC4899"></div>
-        <h3>Ernährung</h3>
-        <p class="cat-count">12 Prompts</p>
-        <div class="cat-examples">
-          <div class="cat-example">7-Tage Ernährungsplan</div>
-          <div class="cat-example">High-Protein Rezepte</div>
-          <div class="cat-example">Vegan & Meal Prep</div>
-        </div>
+      <div class="sol-card">
+        <div class="sol-card-number">12</div>
+        <div class="sol-card-tag">Kunden-Emails</div>
+        <h3>Automatisierte Email-Sequenzen</h3>
+        <ul class="sol-card-list">
+          <li>Willkommens-Email</li>
+          <li>Follow-up & Re-engagement</li>
+          <li>Upsell-Sequenz</li>
+          <li>Check-in Templates</li>
+          <li>+ 8 weitere Prompts</li>
+        </ul>
       </div>
     </div>
   </div>
 </section>
-
-<div class="divider"></div>
 
 <!-- HOW IT WORKS -->
-<section id="so-funktionierts">
+<section class="how reveal">
   <div class="container">
-    <p class="section-label fade-in">So einfach geht's</p>
-    <h2 class="section-title fade-in">In 4 Schritten zu<br>professionellen Ergebnissen</h2>
+    <div class="how-header">
+      <span class="section-tag">So einfach geht's</span>
+      <h2 class="section-title">In 4 Schritten zu<br/>professionellen Ergebnissen</h2>
+      <p class="section-sub">Keine technischen Kenntnisse nötig. Direkt einsatzbereit in ChatGPT, Claude oder Gemini.</p>
+    </div>
+
     <div class="steps">
-      <div class="step fade-in">
+      <div class="step">
         <div class="step-num">01</div>
         <h3>Kaufen & Downloaden</h3>
-        <p>Einmaliger Kauf, sofortiger Download als PDF.</p>
+        <p>Einmaliger Kauf über Gumroad. Sofortiger Download als PDF – in wenigen Sekunden.</p>
       </div>
-      <div class="step fade-in">
+      <div class="step">
         <div class="step-num">02</div>
         <h3>Prompt auswählen</h3>
-        <p>Passenden Prompt aus einer der 4 Kategorien wählen.</p>
+        <p>Wähle einen passenden Prompt aus einer der 4 Kategorien für deine aktuelle Aufgabe.</p>
       </div>
-      <div class="step fade-in">
+      <div class="step">
         <div class="step-num">03</div>
         <h3>Einfügen & Anpassen</h3>
-        <p>Prompt in ChatGPT oder Claude einfügen, Platzhalter ersetzen.</p>
+        <p>Füge den Prompt in dein KI-Tool ein und ersetze die Platzhalter mit deinen Daten.</p>
       </div>
-      <div class="step fade-in">
+      <div class="step">
         <div class="step-num">04</div>
         <h3>Ergebnis nutzen</h3>
-        <p>Professionelles Ergebnis in unter 60 Sekunden – fertig.</p>
+        <p>Professionelles Ergebnis in unter 60 Sekunden – direkt einsetzbar für dein Coaching.</p>
       </div>
     </div>
   </div>
 </section>
 
-<div class="divider"></div>
+<!-- TESTIMONIALS -->
+<section class="testimonials reveal">
+  <div class="container">
+    <div class="testimonials-header">
+      <span class="section-tag">Stimmen aus der Community</span>
+      <h2 class="section-title">Was Coaches darüber sagen</h2>
+      <p class="section-sub">Echte Ergebnisse von Fitness-Professionals die AICoachKit täglich einsetzen.</p>
+    </div>
+
+    <div class="testi-grid">
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-quote">„Ich spare jetzt mindestens 8 Stunden pro Woche. Die Trainingspläne-Prompts sind unglaublich präzise – meine Klienten sind begeistert von der Qualität."</p>
+        <div class="testi-author">
+          <div class="testi-avatar" style="background: linear-gradient(135deg, #7c3aed, #a855f7); color: #fff;">ML</div>
+          <div>
+            <div class="testi-name">Markus L.</div>
+            <div class="testi-role">Personal Trainer · München</div>
+          </div>
+        </div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-quote">„Endlich kann ich mein Instagram konsistent bespielen ohne jeden Tag eine Stunde für Content zu verschwenden. Der 30-Tage Kalender ist ein Game Changer."</p>
+        <div class="testi-author">
+          <div class="testi-avatar" style="background: linear-gradient(135deg, #f59e0b, #f87171); color: #fff;">SK</div>
+          <div>
+            <div class="testi-name">Sarah K.</div>
+            <div class="testi-role">Online Fitness Coach · Berlin</div>
+          </div>
+        </div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-quote">„29€ für etwas das mir monatlich 20+ Stunden spart? Das beste Investment für mein Coaching-Business seit Jahren. Absolut empfehlenswert."</p>
+        <div class="testi-author">
+          <div class="testi-avatar" style="background: linear-gradient(135deg, #10b981, #3b82f6); color: #fff;">TR</div>
+          <div>
+            <div class="testi-name">Tom R.</div>
+            <div class="testi-role">Fitness & Ernährungscoach · Hamburg</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
 <!-- PRICING -->
-<section class="pricing-section">
-  <div class="container" style="text-align:center">
-    <p class="section-label fade-in">Preis</p>
-    <h2 class="section-title fade-in">Einmalig kaufen.<br>Für immer nutzen.</h2>
-    <div class="pricing-card fade-in">
-      <div class="pricing-badge">AI Prompt Pack</div>
-      <div class="pricing-price"><sup>€</sup>29</div>
-      <p class="pricing-note">Einmaliger Kauf – kein Abo, keine versteckten Kosten</p>
-      <ul class="pricing-features">
-        <li>50+ fertige KI-Prompts</li>
-        <li>4 Kategorien: Training, Content, Emails, Ernährung</li>
-        <li>Deutsch & Englisch</li>
-        <li>Kompatibel mit ChatGPT, Claude & Gemini</li>
-        <li>Sofort-Download als PDF</li>
-        <li>Lebenslanger Zugriff & kostenlose Updates</li>
-      </ul>
-      <a href="https://aicoachkit.gumroad.com/l/dcblmq" target="_blank" class="btn-buy">Jetzt kaufen – sofort downloaden</a>
-      <p class="pricing-guarantee">🔒 Sicherer Kauf über Gumroad &nbsp;·&nbsp; 📥 Sofortiger Download</p>
+<section class="pricing reveal" id="kontakt">
+  <div class="container">
+    <div class="pricing-header">
+      <span class="section-tag">Preis</span>
+      <h2 class="section-title">Einmalig kaufen.<br/>Für immer nutzen.</h2>
+      <p class="section-sub">Kein Abo, keine versteckten Kosten. Einmal zahlen, lebenslang profitieren.</p>
+    </div>
+
+    <div class="pricing-card-wrap">
+      <div class="pricing-card">
+        <div class="pricing-card-glow"></div>
+        <div class="pricing-label">AI Prompt Pack</div>
+        <div class="pricing-title">Alles was du brauchst</div>
+
+        <div class="price-row">
+          <span class="price-currency">€</span>
+          <span class="price-amount">29</span>
+        </div>
+        <p class="price-note">Einmaliger Kauf · Kein Abo · Keine versteckten Kosten</p>
+
+        <div class="pricing-divider"></div>
+
+        <ul class="pricing-features">
+          <li><span class="feature-check">✓</span> 50+ fertige KI-Prompts</li>
+          <li><span class="feature-check">✓</span> 4 Kategorien: Training, Content, Emails, Ernährung</li>
+          <li><span class="feature-check">✓</span> Deutsch & Englisch – maximale Reichweite</li>
+          <li><span class="feature-check">✓</span> Kompatibel mit ChatGPT, Claude & Gemini</li>
+          <li><span class="feature-check">✓</span> Sofort-Download als PDF</li>
+          <li><span class="feature-check">✓</span> Lebenslanger Zugriff & kostenlose Updates</li>
+        </ul>
+
+        <a href="https://aicoachkit.gumroad.com/l/dcblmq" class="pricing-btn">
+          Jetzt kaufen – sofort downloaden ↗
+        </a>
+
+        <div class="pricing-trust">
+          <span class="trust-item">🔒 Sicherer Kauf via Gumroad</span>
+          <span class="trust-item">📥 Sofortiger Download</span>
+          <span class="trust-item">♾ Lebenslanges Update</span>
+        </div>
+      </div>
     </div>
   </div>
 </section>
 
-<div class="divider"></div>
-
-<!-- ABOUT -->
-<section id="about">
+<!-- FAQ -->
+<section class="faq reveal">
   <div class="container">
-    <div class="about-grid">
-      <div class="about-visual fade-in">
-        <div class="about-icon">🤖</div>
-        <h3>AICoachKit</h3>
-        <p>KI-Tools & Prompts speziell entwickelt für Fitness-Professionals</p>
+    <div class="faq-header">
+      <span class="section-tag">FAQ</span>
+      <h2 class="section-title">Häufige Fragen</h2>
+      <p class="section-sub">Alles was du über AICoachKit wissen musst.</p>
+    </div>
+
+    <div class="faq-list">
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          Für welche KI-Tools funktionieren die Prompts?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-a">
+          <div class="faq-a-inner">Die Prompts funktionieren mit allen gängigen KI-Tools – ChatGPT (GPT-3.5 & GPT-4), Claude von Anthropic, Google Gemini und weiteren. Du brauchst nur einen kostenlosen Account bei einem dieser Anbieter.</div>
+        </div>
       </div>
-      <div class="about-text fade-in">
-        <p class="section-label">Über uns</p>
-        <h2 class="section-title">KI-Tools die wirklich<br>für Coaches gebaut sind</h2>
-        <p>AICoachKit entstand aus einer einfachen Beobachtung: Fitness-Coaches verbringen zu viel Zeit mit administrativen Aufgaben und zu wenig Zeit mit dem was sie lieben – coachen.</p>
-        <p>Wir kombinieren tiefes Fitness-Know-how mit dem Potenzial moderner KI, um praxisnahe Tools zu entwickeln die im Coaching-Alltag wirklich funktionieren.</p>
-        <div class="about-values">
-          <div class="about-value"><div class="about-value-dot"></div><span>Praxisnah – entwickelt mit echten Coaching-Szenarien</span></div>
-          <div class="about-value"><div class="about-value-dot"></div><span>Zweisprachig – maximale Reichweite für dein Business</span></div>
-          <div class="about-value"><div class="about-value-dot"></div><span>Kontinuierlich – regelmäßige Updates & neue Produkte</span></div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          Brauche ich technische Kenntnisse?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-a">
+          <div class="faq-a-inner">Nein. Jeder Prompt ist so aufgebaut, dass du einfach den Text kopierst, die markierten Platzhalter durch deine eigenen Informationen ersetzt und das Ergebnis sofort nutzen kannst. Keine technischen Vorkenntnisse nötig.</div>
+        </div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          Wie erhalte ich das Produkt nach dem Kauf?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-a">
+          <div class="faq-a-inner">Unmittelbar nach dem Kauf erhältst du eine Bestätigungs-Email mit dem Download-Link für das PDF. Der Zugriff ist lebenslang – du kannst das Dokument jederzeit erneut herunterladen.</div>
+        </div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          Gibt es Updates und neue Prompts?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-a">
+          <div class="faq-a-inner">Ja! Alle zukünftigen Updates und neu hinzugefügten Prompts sind für alle bestehenden Käufer kostenlos. Du kaufst einmal und profitierst dauerhaft von Verbesserungen.</div>
+        </div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          Gibt es eine Geld-zurück-Garantie?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-a">
+          <div class="faq-a-inner">Gumroad bietet einen standardisierten Käuferschutz. Bei Fragen oder Problemen kannst du uns jederzeit unter hello@aicoachkit.de kontaktieren – wir antworten in der Regel innerhalb von 24 Stunden.</div>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<div class="divider"></div>
-
-<!-- CONTACT -->
-<section class="contact-section" id="kontakt">
+<!-- CTA BANNER -->
+<section class="cta-banner reveal" id="about">
   <div class="container">
-    <p class="section-label fade-in">Kontakt</p>
-    <h2 class="section-title fade-in">Fragen? Wir sind für<br>dich da.</h2>
-    <div class="contact-grid">
-      <div class="contact-info fade-in">
-        <div class="contact-item">
-          <div class="contact-item-icon">✉️</div>
-          <div>
-            <h4>Email</h4>
-            <a href="mailto:hello@aicoachkit.de">hello@aicoachkit.de</a>
-          </div>
-        </div>
-        <div class="contact-item">
-          <div class="contact-item-icon">🌐</div>
-          <div>
-            <h4>Website</h4>
-            <a href="https://aicoachkit.de">aicoachkit.de</a>
-          </div>
-        </div>
-        <div class="contact-item">
-          <div class="contact-item-icon">🛒</div>
-          <div>
-            <h4>Shop</h4>
-            <a href="https://aicoachkit.gumroad.com" target="_blank">aicoachkit.gumroad.com</a>
-          </div>
-        </div>
-        <div class="contact-item">
-          <div class="contact-item-icon">⏱️</div>
-          <div>
-            <h4>Antwortzeit</h4>
-            <p>In der Regel innerhalb von 24 Stunden</p>
-          </div>
-        </div>
-      </div>
-      <div class="contact-form fade-in">
-        <h3>Nachricht schreiben</h3>
-        <div class="form-group">
-          <label>Name</label>
-          <input type="text" placeholder="Dein Name">
-        </div>
-        <div class="form-group">
-          <label>Email</label>
-          <input type="email" placeholder="deine@email.de">
-        </div>
-        <div class="form-group">
-          <label>Nachricht</label>
-          <textarea placeholder="Wie können wir dir helfen?"></textarea>
-        </div>
-        <button class="btn-submit" onclick="handleSubmit()">Nachricht senden</button>
+    <div class="cta-inner">
+      <div class="cta-glow-1"></div>
+      <div class="cta-glow-2"></div>
+      <span class="section-tag">Bereit loszulegen?</span>
+      <h2>Starte heute und spare<br/><span class="gradient">20+ Stunden pro Monat</span></h2>
+      <p>Schließe dich hunderten von Fitness-Coaches an, die AICoachKit täglich einsetzen um ihr Business effizienter zu gestalten.</p>
+      <div class="cta-btn-wrap">
+        <a href="https://aicoachkit.gumroad.com/l/dcblmq" class="btn-primary">Jetzt für 29 € kaufen ↗</a>
+        <a href="mailto:hello@aicoachkit.de" class="btn-secondary">Frage stellen</a>
       </div>
     </div>
   </div>
@@ -1023,52 +1384,83 @@
 
 <!-- FOOTER -->
 <footer>
-  <div class="footer-logo">AI<span>Coach</span>Kit</div>
-  <p>KI-Prompts & Tools für Fitness-Professionals</p>
-  <div class="footer-links">
-    <a href="#home">Start</a>
-    <a href="#produkt">Produkt</a>
-    <a href="#about">Über uns</a>
-    <a href="#kontakt">Kontakt</a>
-    <a href="https://aicoachkit.gumroad.com/l/dcblmq" target="_blank">Shop</a>
+  <div class="container">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <a href="#home" class="nav-logo">
+          <div class="nav-logo-icon">🤖</div>
+          AICoachKit
+        </a>
+        <p>KI-Prompts & Tools speziell entwickelt für Fitness-Professionals. Spare Zeit, skaliere dein Business.</p>
+      </div>
+
+      <div class="footer-links">
+        <h4>Navigation</h4>
+        <ul>
+          <li><a href="#produkt">Produkt</a></li>
+          <li><a href="#so-funktionierts">Wie es funktioniert</a></li>
+          <li><a href="#about">Über uns</a></li>
+          <li><a href="#kontakt">Kontakt</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-links">
+        <h4>Links</h4>
+        <ul>
+          <li><a href="https://aicoachkit.gumroad.com/l/dcblmq">Shop</a></li>
+          <li><a href="mailto:hello@aicoachkit.de">hello@aicoachkit.de</a></li>
+          <li><a href="https://aicoachkit.de">aicoachkit.de</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <p>© 2026 AICoachKit · aicoachkit.de · hello@aicoachkit.de</p>
+      <p>Alle Rechte vorbehalten</p>
+    </div>
   </div>
-  <p style="margin-top:1.5rem; font-size:0.8rem;">© 2026 AICoachKit · aicoachkit.de · hello@aicoachkit.de</p>
 </footer>
 
 <script>
-  // Fade-in on scroll
+  // SCROLL REVEAL
   const observer = new IntersectionObserver((entries) => {
-    entries.forEach((entry, i) => {
-      if (entry.isIntersecting) {
-        setTimeout(() => entry.target.classList.add('visible'), i * 80);
-        observer.unobserve(entry.target);
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        // stagger children
+        const cards = e.target.querySelectorAll('.problem-card, .sol-card, .step, .testi-card, .faq-item');
+        cards.forEach((c, i) => {
+          c.style.transitionDelay = (i * 0.08) + 's';
+          c.classList.add('reveal', 'visible');
+        });
       }
     });
   }, { threshold: 0.1 });
 
-  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
-  // Contact form
-  function handleSubmit() {
-    const btn = document.querySelector('.btn-submit');
-    btn.textContent = '✓ Gesendet!';
-    btn.style.background = '#10B981';
-    setTimeout(() => {
-      btn.textContent = 'Nachricht senden';
-      btn.style.background = '';
-    }, 3000);
+  // FAQ TOGGLE
+  function toggleFaq(btn) {
+    const item = btn.closest('.faq-item');
+    const isOpen = item.classList.contains('open');
+    document.querySelectorAll('.faq-item').forEach(i => {
+      i.classList.remove('open');
+      i.querySelector('.faq-icon').textContent = '+';
+    });
+    if (!isOpen) {
+      item.classList.add('open');
+      btn.querySelector('.faq-icon').textContent = '−';
+    }
   }
 
-  // Active nav link highlight
-  const sections = document.querySelectorAll('section[id]');
+  // NAV SCROLL EFFECT
   window.addEventListener('scroll', () => {
-    let current = '';
-    sections.forEach(s => {
-      if (window.scrollY >= s.offsetTop - 120) current = s.id;
-    });
-    document.querySelectorAll('.nav-links a').forEach(a => {
-      a.style.color = a.getAttribute('href') === `#${current}` ? 'var(--white)' : '';
-    });
+    const nav = document.querySelector('nav');
+    if (window.scrollY > 20) {
+      nav.style.background = 'rgba(6,6,8,0.92)';
+    } else {
+      nav.style.background = 'rgba(6,6,8,0.7)';
+    }
   });
 </script>
 </body>
