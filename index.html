@@ -165,18 +165,11 @@
       transition: all 0.3s ease;
     }
     nav .container { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
-    .nav-logo {
-      font-family: var(--font-display);
-      font-weight: 800;
-      font-size: 20px;
-      color: var(--text);
-      text-decoration: none;
-      letter-spacing: -0.5px;
-    }
-    .nav-logo span { color: #888; }
+    .nav-logo { display: flex; align-items: center; text-decoration: none; }
+    .nav-logo img { height: 36px; width: auto; border-radius: 8px; }
     .nav-links { display: flex; align-items: center; gap: 32px; list-style: none; }
-    .nav-links a { font-size: 14px; font-weight: 400; color: var(--text-muted); text-decoration: none; transition: color 0.2s; }
-    .nav-links a:hover { color: var(--text); }
+    .nav-links a { font-size: 14px; font-weight: 500; color: var(--text); text-decoration: none; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--black); }
     .nav-cta {
       background: var(--black);
       color: var(--white) !important;
@@ -624,17 +617,35 @@
 
     /* ══ FOOTER ══ */
     footer {
-      background: var(--black);
-      border-top: 1px solid rgba(255,255,255,0.07);
-      padding: 40px 0;
-      color: rgba(255,255,255,0.35);
+      background: var(--off-white);
+      border-top: 3px solid var(--accent);
+      padding: 40px 0 0;
     }
-    .footer-inner { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; }
-    .footer-logo { font-family: var(--font-display); font-size: 16px; font-weight: 800; color: var(--white); }
+    .footer-top {
+      display: flex; justify-content: space-between; align-items: center;
+      flex-wrap: wrap; gap: 20px;
+      padding-bottom: 28px;
+    }
+    .footer-bottom {
+      display: flex; justify-content: space-between; align-items: center;
+      flex-wrap: wrap; gap: 12px;
+      padding: 20px 0;
+      border-top: 0.5px solid var(--border);
+    }
+    .footer-logo { font-family: var(--font-display); font-size: 18px; font-weight: 800; color: var(--text); }
     .footer-links { display: flex; gap: 24px; flex-wrap: wrap; }
-    .footer-links a { font-size: 13px; color: rgba(255,255,255,0.35); text-decoration: none; transition: color 0.2s; }
-    .footer-links a:hover { color: rgba(255,255,255,0.7); }
-    .footer-copy { font-size: 13px; }
+    .footer-links a { font-size: 13px; color: var(--text-muted); text-decoration: none; font-weight: 500; transition: color 0.2s; }
+    .footer-links a:hover { color: var(--black); }
+    .footer-copy { font-size: 12px; color: var(--text-light); }
+    .footer-legal-links { display: flex; gap: 16px; }
+    .footer-legal-links a {
+      font-size: 12px; font-weight: 600;
+      color: var(--text);
+      text-decoration: underline;
+      text-underline-offset: 3px;
+      transition: color 0.2s;
+    }
+    .footer-legal-links a:hover { color: var(--black); }
 
     /* ══ CTA BANNER ══ */
     .cta-banner {
@@ -726,7 +737,9 @@
 <!-- ══ NAVIGATION ══ -->
 <nav id="navbar" role="navigation" aria-label="Hauptnavigation">
   <div class="container">
-    <a href="#home" class="nav-logo" aria-label="AICoachKit Startseite">AICoach<span>Kit</span></a>
+    <a href="#home" class="nav-logo" aria-label="AICoachKit Startseite">
+      <img src="logo.png" alt="AICoachKit Logo" />
+    </a>
     <ul class="nav-links" role="list">
       <li><a href="#produkt">Produkt</a></li>
       <li><a href="#so-funktionierts">So geht's</a></li>
@@ -1285,7 +1298,7 @@
     <h2 class="section-title" id="about-h2">KI-Tools die wirklich<br>für Coaches gebaut sind</h2>
     <div class="about-grid">
       <div class="about-visual reveal">
-        <div class="about-avatar" aria-hidden="true">AK</div>
+        <img src="logo.png" alt="AICoachKit" style="width:72px;height:72px;border-radius:16px;object-fit:cover;margin-bottom:20px;display:block;" />
         <div class="about-name">Das AICoachKit-Team</div>
         <div class="about-role">KI-Enthusiasten & Fitness-Insider</div>
         <p class="about-bio">AICoachKit entstand aus einer einfachen Beobachtung: Fitness-Coaches verbringen zu viel Zeit mit administrativen Aufgaben und zu wenig Zeit mit dem, was sie lieben – coachen.<br><br>Wir kombinieren tiefes Fitness-Know-how mit dem Potenzial moderner KI, um praxisnahe Tools zu entwickeln, die im Coaching-Alltag wirklich funktionieren.<br><br>Jeder Prompt wurde in echten Coaching-Szenarien entwickelt und getestet – nicht im Labor, sondern in der Praxis.</p>
@@ -1404,8 +1417,8 @@
 <!-- ══ FOOTER ══ -->
 <footer role="contentinfo">
   <div class="container">
-    <div class="footer-inner">
-      <span class="footer-logo">AICoachKit</span>
+    <div class="footer-top">
+      <img src="logo.png" alt="AICoachKit Logo" style="height:40px;width:auto;border-radius:8px;" />
       <nav class="footer-links" aria-label="Footer Navigation">
         <a href="#home">Start</a>
         <a href="#produkt">Produkt</a>
@@ -1413,16 +1426,21 @@
         <a href="#kontakt">Kontakt</a>
         <a href="https://aicoachkit.gumroad.com/l/dcblmq" target="_blank" rel="noopener">Shop</a>
         <a href="https://www.instagram.com/AICoachkit_de" target="_blank" rel="noopener">Instagram</a>
-        <a href="impressum.html">Impressum</a>
-        <a href="datenschutz.html">Datenschutz</a>
       </nav>
+    </div>
+    <div class="footer-bottom">
       <span class="footer-copy">© 2026 AICoachKit · hello@aicoachkit.de</span>
+      <div class="footer-legal-links">
+        <a href="impressum.html">Impressum</a>
+        <a href="datenschutz.html">Datenschutzerklärung</a>
+      </div>
     </div>
   </div>
 </footer>
 
 <!-- ══ MOBILE MENU (overlay) ══ -->
 <div id="mobile-menu" style="display:none;position:fixed;inset:0;background:var(--off-white);z-index:99;padding:80px 24px 24px;flex-direction:column;gap:8px;">
+  <img src="logo.png" alt="AICoachKit" style="height:44px;width:auto;border-radius:8px;position:absolute;top:18px;left:24px;" />
   <a href="#produkt" onclick="closeMenu()" style="font-size:20px;font-family:var(--font-display);font-weight:700;text-decoration:none;color:var(--text);padding:16px 0;border-bottom:1px solid var(--border)">Produkt</a>
   <a href="#so-funktionierts" onclick="closeMenu()" style="font-size:20px;font-family:var(--font-display);font-weight:700;text-decoration:none;color:var(--text);padding:16px 0;border-bottom:1px solid var(--border)">So geht's</a>
   <a href="#bewertungen" onclick="closeMenu()" style="font-size:20px;font-family:var(--font-display);font-weight:700;text-decoration:none;color:var(--text);padding:16px 0;border-bottom:1px solid var(--border)">Bewertungen</a>
