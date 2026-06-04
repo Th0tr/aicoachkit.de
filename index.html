@@ -9,13 +9,14 @@
   <meta name="description" content="Erstelle Trainingspläne, Content & Emails in 60 Sekunden – mit 50+ fertigen KI-Prompts für Fitness-Coaches. Einmalig 29 €, sofortiger Download. Bereits von 200+ Coaches genutzt." />
   <meta name="keywords" content="KI Prompts Fitness Coach, ChatGPT Trainingsplan, KI Ernährungsplan Coach, Fitness Coach KI Tools, Prompt Pack Fitness, AI Coach Tools Deutsch" />
   <link rel="canonical" href="https://aicoachkit.de/" />
+  <link rel="icon" href="logo.png" type="image/png" />
 
   <!-- ══ OPEN GRAPH ══ -->
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://aicoachkit.de/" />
   <meta property="og:title" content="AICoachKit – 50+ KI-Prompts für Fitness-Coaches" />
   <meta property="og:description" content="Erstelle Trainingspläne, Content & Emails in 60 Sekunden. Einmalig 29 €, sofortiger Download. 200+ Coaches vertrauen AICoachKit." />
-  <meta property="og:image" content="https://aicoachkit.de/og-image.jpg" />
+  <meta property="og:image" content="https://aicoachkit.de/logo.png" />
   <meta property="og:locale" content="de_DE" />
   <meta property="og:site_name" content="AICoachKit" />
 
@@ -23,7 +24,7 @@
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="AICoachKit – 50+ KI-Prompts für Fitness-Coaches" />
   <meta name="twitter:description" content="Trainingspläne, Content & Emails in 60 Sekunden. 29 € einmalig. Jetzt downloaden." />
-  <meta name="twitter:image" content="https://aicoachkit.de/og-image.jpg" />
+  <meta name="twitter:image" content="https://aicoachkit.de/logo.png" />
 
   <!-- ══ SCHEMA.ORG – Product ══ -->
   <script type="application/ld+json">
@@ -541,6 +542,8 @@
       cursor: pointer;
       user-select: none;
       transition: background 0.15s;
+      background: none; border: none; width: 100%; text-align: left;
+      font-family: inherit; color: inherit;
     }
     .faq-question:hover { background: var(--off-white); }
     .faq-toggle { width: 24px; height: 24px; background: var(--off-white); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 14px; flex-shrink: 0; transition: transform 0.3s, background 0.2s; }
@@ -704,6 +707,32 @@
       transition: opacity 0.3s, transform 0.3s;
     }
     #cookie-banner.hidden { opacity: 0; transform: translateY(20px); pointer-events: none; }
+
+    /* ══ MOBILE MENU ══ */
+    #mobile-menu {
+      position: fixed; inset: 0;
+      background: var(--off-white);
+      z-index: 99;
+      padding: 80px 24px 24px;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .mobile-menu-logo { height: 44px; width: auto; border-radius: 8px; position: absolute; top: 18px; left: 24px; }
+    .mobile-menu-link {
+      font-size: 20px; font-family: var(--font-display); font-weight: 700;
+      text-decoration: none; color: var(--text);
+      padding: 16px 0; border-bottom: 1px solid var(--border);
+    }
+    .mobile-menu-cta {
+      margin-top: 24px; display: block; text-align: center;
+      background: var(--black); color: var(--white);
+      padding: 18px; border-radius: 100px;
+      font-size: 16px; font-weight: 600; text-decoration: none;
+    }
+    .mobile-menu-close {
+      background: none; border: none; font-size: 28px; cursor: pointer;
+      position: absolute; top: 20px; right: 24px; color: var(--text);
+    }
     .cookie-text { font-size: 13px; color: var(--text-muted); line-height: 1.6; }
     .cookie-text a { color: var(--text); }
     .cookie-actions { display: flex; gap: 8px; }
@@ -1216,73 +1245,73 @@
     <p class="section-sub">Alles was du wissen möchtest, bevor du kaufst.</p>
     <div class="faq-grid" role="list">
       <div class="faq-item" role="listitem">
-        <div class="faq-question" onclick="toggleFaq(this)" aria-expanded="false" role="button" tabindex="0">
+        <button class="faq-question" onclick="toggleFaq(this)" aria-expanded="false">
           <span>Welche KI-Tools sind kompatibel?</span>
           <span class="faq-toggle" aria-hidden="true">+</span>
-        </div>
+        </button>
         <div class="faq-answer">
           <p class="faq-answer-inner">Die Prompts funktionieren mit ChatGPT (GPT-3.5 & GPT-4), Claude von Anthropic und Google Gemini. Ein kostenloses ChatGPT-Konto reicht vollkommen aus – du benötigst kein kostenpflichtiges Plus-Abo.</p>
         </div>
       </div>
       <div class="faq-item" role="listitem">
-        <div class="faq-question" onclick="toggleFaq(this)" aria-expanded="false" role="button" tabindex="0">
+        <button class="faq-question" onclick="toggleFaq(this)" aria-expanded="false">
           <span>Wie erhalte ich den Download?</span>
           <span class="faq-toggle" aria-hidden="true">+</span>
-        </div>
+        </button>
         <div class="faq-answer">
           <p class="faq-answer-inner">Nach dem Kauf über Gumroad erhältst du sofort eine E-Mail mit dem Download-Link für das PDF. Der Zugriff ist dauerhaft und du kannst das Dokument jederzeit erneut herunterladen.</p>
         </div>
       </div>
       <div class="faq-item" role="listitem">
-        <div class="faq-question" onclick="toggleFaq(this)" aria-expanded="false" role="button" tabindex="0">
+        <button class="faq-question" onclick="toggleFaq(this)" aria-expanded="false">
           <span>Gibt es eine Geld-zurück-Garantie?</span>
           <span class="faq-toggle" aria-hidden="true">+</span>
-        </div>
+        </button>
         <div class="faq-answer">
           <p class="faq-answer-inner">Ja! Wenn du innerhalb von 30 Tagen nach dem Kauf nicht zufrieden bist, erstatten wir dir den vollen Kaufpreis – ohne Fragen. Schreib uns einfach an hello@aicoachkit.de.</p>
         </div>
       </div>
       <div class="faq-item" role="listitem">
-        <div class="faq-question" onclick="toggleFaq(this)" aria-expanded="false" role="button" tabindex="0">
+        <button class="faq-question" onclick="toggleFaq(this)" aria-expanded="false">
           <span>Brauche ich KI-Vorkenntnisse?</span>
           <span class="faq-toggle" aria-hidden="true">+</span>
-        </div>
+        </button>
         <div class="faq-answer">
           <p class="faq-answer-inner">Nein, überhaupt nicht. Die Prompts sind so gestaltet, dass du sie einfach kopierst, die farbigen Platzhalter durch deine Kundendaten ersetzt und sofort professionelle Ergebnisse erhältst. Eine Schritt-für-Schritt-Anleitung ist inklusive.</p>
         </div>
       </div>
       <div class="faq-item" role="listitem">
-        <div class="faq-question" onclick="toggleFaq(this)" aria-expanded="false" role="button" tabindex="0">
+        <button class="faq-question" onclick="toggleFaq(this)" aria-expanded="false">
           <span>Sind die Prompts auf Deutsch oder Englisch?</span>
           <span class="faq-toggle" aria-hidden="true">+</span>
-        </div>
+        </button>
         <div class="faq-answer">
           <p class="faq-answer-inner">Beide! Jeder der 50+ Prompts ist sowohl auf Deutsch als auch auf Englisch verfügbar. So hast du maximale Flexibilität für deutschsprachige und internationale Kunden.</p>
         </div>
       </div>
       <div class="faq-item" role="listitem">
-        <div class="faq-question" onclick="toggleFaq(this)" aria-expanded="false" role="button" tabindex="0">
+        <button class="faq-question" onclick="toggleFaq(this)" aria-expanded="false">
           <span>Wie oft wird das Pack aktualisiert?</span>
           <span class="faq-toggle" aria-hidden="true">+</span>
-        </div>
+        </button>
         <div class="faq-answer">
           <p class="faq-answer-inner">Wir aktualisieren das Prompt Pack regelmäßig mit neuen Prompts und Verbesserungen. Als Käufer erhältst du alle zukünftigen Updates automatisch und kostenlos über Gumroad.</p>
         </div>
       </div>
       <div class="faq-item" role="listitem">
-        <div class="faq-question" onclick="toggleFaq(this)" aria-expanded="false" role="button" tabindex="0">
+        <button class="faq-question" onclick="toggleFaq(this)" aria-expanded="false">
           <span>Darf ich die Prompts für Kunden nutzen?</span>
           <span class="faq-toggle" aria-hidden="true">+</span>
-        </div>
+        </button>
         <div class="faq-answer">
           <p class="faq-answer-inner">Ja, du darfst die generierten Inhalte (Trainingspläne, Emails etc.) uneingeschränkt für deine Kunden und dein Business nutzen. Du darfst die Prompts selbst jedoch nicht weiterverkaufen oder teilen.</p>
         </div>
       </div>
       <div class="faq-item" role="listitem">
-        <div class="faq-question" onclick="toggleFaq(this)" aria-expanded="false" role="button" tabindex="0">
+        <button class="faq-question" onclick="toggleFaq(this)" aria-expanded="false">
           <span>Funktioniert das auch für Ernährungsberater?</span>
           <span class="faq-toggle" aria-hidden="true">+</span>
-        </div>
+        </button>
         <div class="faq-answer">
           <p class="faq-answer-inner">Absolut. Die Ernährungs-Kategorie mit 12 Prompts ist speziell für Coaches entwickelt, die Ernährungsberatung anbieten. Von Wochenplänen über Rezepte bis hin zu Makro-Erklärungen ist alles dabei.</p>
         </div>
@@ -1298,7 +1327,7 @@
     <h2 class="section-title" id="about-h2">KI-Tools die wirklich<br>für Coaches gebaut sind</h2>
     <div class="about-grid">
       <div class="about-visual reveal">
-        <img src="logo.png" alt="AICoachKit" style="width:72px;height:72px;border-radius:16px;object-fit:cover;margin-bottom:20px;display:block;" />
+        <img src="logo.png" alt="AICoachKit" loading="lazy" style="width:72px;height:72px;border-radius:16px;object-fit:cover;margin-bottom:20px;display:block;" />
         <div class="about-name">Das AICoachKit-Team</div>
         <div class="about-role">KI-Enthusiasten & Fitness-Insider</div>
         <p class="about-bio">AICoachKit entstand aus einer einfachen Beobachtung: Fitness-Coaches verbringen zu viel Zeit mit administrativen Aufgaben und zu wenig Zeit mit dem, was sie lieben – coachen.<br><br>Wir kombinieren tiefes Fitness-Know-how mit dem Potenzial moderner KI, um praxisnahe Tools zu entwickeln, die im Coaching-Alltag wirklich funktionieren.<br><br>Jeder Prompt wurde in echten Coaching-Szenarien entwickelt und getestet – nicht im Labor, sondern in der Praxis.</p>
@@ -1353,7 +1382,7 @@
   <div class="container">
     <span class="section-label">Kontakt</span>
     <h2 class="section-title" id="kontakt-h2">Fragen? Wir sind<br>für dich da.</h2>
-    <p class="section-sub">Antwortszeit in der Regel unter 24 Stunden.</p>
+    <p class="section-sub">Antwortzeit in der Regel unter 24 Stunden.</p>
     <div class="contact-grid">
       <form class="contact-form reveal" id="contact-form" novalidate aria-label="Kontaktformular">
         <div class="form-group">
@@ -1439,15 +1468,15 @@
 </footer>
 
 <!-- ══ MOBILE MENU (overlay) ══ -->
-<div id="mobile-menu" style="display:none;position:fixed;inset:0;background:var(--off-white);z-index:99;padding:80px 24px 24px;flex-direction:column;gap:8px;">
-  <img src="logo.png" alt="AICoachKit" style="height:44px;width:auto;border-radius:8px;position:absolute;top:18px;left:24px;" />
-  <a href="#produkt" onclick="closeMenu()" style="font-size:20px;font-family:var(--font-display);font-weight:700;text-decoration:none;color:var(--text);padding:16px 0;border-bottom:1px solid var(--border)">Produkt</a>
-  <a href="#so-funktionierts" onclick="closeMenu()" style="font-size:20px;font-family:var(--font-display);font-weight:700;text-decoration:none;color:var(--text);padding:16px 0;border-bottom:1px solid var(--border)">So geht's</a>
-  <a href="#bewertungen" onclick="closeMenu()" style="font-size:20px;font-family:var(--font-display);font-weight:700;text-decoration:none;color:var(--text);padding:16px 0;border-bottom:1px solid var(--border)">Bewertungen</a>
-  <a href="#faq" onclick="closeMenu()" style="font-size:20px;font-family:var(--font-display);font-weight:700;text-decoration:none;color:var(--text);padding:16px 0;border-bottom:1px solid var(--border)">FAQ</a>
-  <a href="#kontakt" onclick="closeMenu()" style="font-size:20px;font-family:var(--font-display);font-weight:700;text-decoration:none;color:var(--text);padding:16px 0;border-bottom:1px solid var(--border)">Kontakt</a>
-  <a href="https://aicoachkit.gumroad.com/l/dcblmq" target="_blank" rel="noopener" style="margin-top:24px;display:block;text-align:center;background:var(--black);color:var(--white);padding:18px;border-radius:100px;font-size:16px;font-weight:600;text-decoration:none;">Jetzt kaufen – 29 €</a>
-  <button onclick="closeMenu()" style="background:none;border:none;font-size:28px;cursor:pointer;position:absolute;top:20px;right:24px;color:var(--text);">✕</button>
+<div id="mobile-menu" style="display:none;">
+  <img src="logo.png" alt="AICoachKit" class="mobile-menu-logo" />
+  <a href="#produkt" onclick="closeMenu()" class="mobile-menu-link">Produkt</a>
+  <a href="#so-funktionierts" onclick="closeMenu()" class="mobile-menu-link">So geht's</a>
+  <a href="#bewertungen" onclick="closeMenu()" class="mobile-menu-link">Bewertungen</a>
+  <a href="#faq" onclick="closeMenu()" class="mobile-menu-link">FAQ</a>
+  <a href="#kontakt" onclick="closeMenu()" class="mobile-menu-link">Kontakt</a>
+  <a href="https://aicoachkit.gumroad.com/l/dcblmq" target="_blank" rel="noopener" class="mobile-menu-cta">Jetzt kaufen – 29 €</a>
+  <button onclick="closeMenu()" class="mobile-menu-close" aria-label="Menü schließen">✕</button>
 </div>
 
 <script>
@@ -1476,11 +1505,35 @@
   function closeMenu() { document.getElementById('mobile-menu').style.display = 'none'; }
 
   // ══ CONTACT FORM ══
-  document.getElementById('contact-form').addEventListener('submit', function(e) {
+  // Formspree: Konto unter formspree.io erstellen und YOUR_FORM_ID ersetzen
+  document.getElementById('contact-form').addEventListener('submit', async function(e) {
     e.preventDefault();
-    document.getElementById('form-success').style.display = 'block';
-    this.reset();
-    setTimeout(() => { document.getElementById('form-success').style.display = 'none'; }, 5000);
+    const name = document.getElementById('name').value.trim();
+    const email = document.getElementById('email').value.trim();
+    const message = document.getElementById('message').value.trim();
+    if (!name || !email || !message) return;
+    const btn = this.querySelector('button[type=submit]');
+    const origText = btn.textContent;
+    btn.disabled = true;
+    btn.textContent = 'Wird gesendet …';
+    try {
+      const res = await fetch('https://formspree.io/f/YOUR_FORM_ID', {
+        method: 'POST',
+        headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name, email, message })
+      });
+      if (!res.ok) throw new Error();
+      document.getElementById('form-success').style.display = 'block';
+      this.reset();
+      setTimeout(() => { document.getElementById('form-success').style.display = 'none'; }, 5000);
+    } catch {
+      window.location.href = 'mailto:hello@aicoachkit.de'
+        + '?subject=' + encodeURIComponent('Kontaktanfrage von ' + name)
+        + '&body=' + encodeURIComponent(message);
+    } finally {
+      btn.disabled = false;
+      btn.textContent = origText;
+    }
   });
 
   // ══ COOKIE BANNER ══
